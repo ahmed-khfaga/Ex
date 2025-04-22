@@ -1,0 +1,40 @@
+﻿@model Instructor
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card shadow rounded-4 border-0">
+                <div class="card-header bg-info text-white rounded-top-4">
+                    <h3 class="mb-0">Instructor Details</h3>
+                </div>
+
+                <div class="card-body p-4">
+                    <dl class="row fs-5">
+                        <dt class="col-sm-4 fw-semibold">First Name</dt>
+                        <dd class="col-sm-8">@Model.FirstName</dd>
+
+                        <dt class="col-sm-4 fw-semibold">Last Name</dt>
+                        <dd class="col-sm-8">@Model.LastName</dd>
+
+                        <dt class="col-sm-4 fw-semibold">Email</dt>
+                        <dd class="col-sm-8">@Model.Email</dd>
+
+                        <dt class="col-sm-4 fw-semibold">Phone</dt>
+                        <dd class="col-sm-8">@Model.Phone</dd>
+
+                        <dt class="col-sm-4 fw-semibold">Address</dt>
+                        <dd class="col-sm-8">@Model.Address</dd>
+
+                        <dt class="col-sm-4 fw-semibold">ID</dt>
+                        <dd class="col-sm-8">@Model.ID</dd>
+                    </dl>
+                </div>
+
+                <div class="card-footer bg-light border-0 text-end rounded-bottom-4">
+                    <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-outline-warning px-4">Edit</a>
+                    <a asp-action="Index" class="btn btn-outline-secondary ms-3 px-4">← Back</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

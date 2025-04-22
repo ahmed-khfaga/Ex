@@ -1,0 +1,45 @@
+﻿@model ExaminationSystem.DAL.Models.Instructor
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card shadow-lg rounded-4 border-0">
+                <div class="card-header bg-danger text-white rounded-top-4">
+                    <h3 class="mb-0">Confirm Delete</h3>
+                </div>
+
+                <div class="card-body p-4">
+                    <div class="alert alert-warning p-3 rounded-3 shadow-sm">
+                        <strong><i class="fas fa-exclamation-triangle me-2"></i>Warning:</strong>
+                        You are about to delete the following instructor. This action cannot be undone.
+                    </div>
+
+                    <dl class="row mb-4">
+                        <dt class="col-sm-4 fw-semibold">First Name:</dt>
+                        <dd class="col-sm-8">@Model.FirstName</dd>
+
+                        <dt class="col-sm-4 fw-semibold">Last Name:</dt>
+                        <dd class="col-sm-8">@Model.LastName</dd>
+
+                        <dt class="col-sm-4 fw-semibold">Email:</dt>
+                        <dd class="col-sm-8">@Model.Email</dd>
+
+                        <dt class="col-sm-4 fw-semibold">Phone:</dt>
+                        <dd class="col-sm-8">@Model.Phone</dd>
+
+                        <dt class="col-sm-4 fw-semibold">Address:</dt>
+                        <dd class="col-sm-8">@Model.Address</dd>
+                    </dl>
+
+                    <form asp-action="Delete" method="post">
+                        <input type="hidden" asp-for="ID" />
+                        <div class="text-end">
+                            <input type="submit" value="Yes, Delete" class="btn btn-danger px-4 me-2" />
+                            <a asp-action="Index" class="btn btn-outline-secondary px-4">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
