@@ -1,0 +1,15 @@
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.BLL\bin\Debug\net8.0\ExaminationSystem.BLL.deps.json
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.BLL\bin\Debug\net8.0\ExaminationSystem.BLL.dll
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.BLL\bin\Debug\net8.0\ExaminationSystem.BLL.pdb
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.BLL\bin\Debug\net8.0\ExaminationSystem.DAL.dll
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.BLL\bin\Debug\net8.0\ExaminationSystem.DAL.pdb
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.BLL\obj\Debug\net8.0\ExaminationSystem.BLL.csproj.AssemblyReference.cache
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.BLL\obj\Debug\net8.0\ExaminationSystem.BLL.GeneratedMSBuildEditorConfig.editorconfig
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.BLL\obj\Debug\net8.0\ExaminationSystem.BLL.AssemblyInfoInputs.cache
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.BLL\obj\Debug\net8.0\ExaminationSystem.BLL.AssemblyInfo.cs
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.BLL\obj\Debug\net8.0\ExaminationSystem.BLL.csproj.CoreCompileInputs.cache
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.BLL\obj\Debug\net8.0\Examinat.6B16BE1A.Up2Date
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.BLL\obj\Debug\net8.0\ExaminationSystem.BLL.dll
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.BLL\obj\Debug\net8.0\refint\ExaminationSystem.BLL.dll
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.BLL\obj\Debug\net8.0\ExaminationSystem.BLL.pdb
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.BLL\obj\Debug\net8.0\ref\ExaminationSystem.BLL.dll

@@ -1,0 +1,12 @@
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.DAL\bin\Debug\net8.0\ExaminationSystem.DAL.deps.json
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.DAL\bin\Debug\net8.0\ExaminationSystem.DAL.dll
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.DAL\bin\Debug\net8.0\ExaminationSystem.DAL.pdb
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.DAL\obj\Debug\net8.0\ExaminationSystem.DAL.csproj.AssemblyReference.cache
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.DAL\obj\Debug\net8.0\ExaminationSystem.DAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.DAL\obj\Debug\net8.0\ExaminationSystem.DAL.AssemblyInfoInputs.cache
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.DAL\obj\Debug\net8.0\ExaminationSystem.DAL.AssemblyInfo.cs
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.DAL\obj\Debug\net8.0\ExaminationSystem.DAL.csproj.CoreCompileInputs.cache
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.DAL\obj\Debug\net8.0\ExaminationSystem.DAL.dll
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.DAL\obj\Debug\net8.0\refint\ExaminationSystem.DAL.dll
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.DAL\obj\Debug\net8.0\ExaminationSystem.DAL.pdb
+D:\MVC EX SYS\ExaminationSystem\ExaminationSystem.DAL\obj\Debug\net8.0\ref\ExaminationSystem.DAL.dll
