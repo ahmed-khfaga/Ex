@@ -1,3 +1,5 @@
+using ExaminationSystem.BLL.Interfaces;
+using ExaminationSystem.BLL.Repositories;
 using ExaminationSystem.DAL.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +16,9 @@ namespace ExaminationSystem.PL
 
             builder.Services.AddDbContext<ExaminitionSystemDbContext>(options =>
            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
+
 
             var app = builder.Build();
 
