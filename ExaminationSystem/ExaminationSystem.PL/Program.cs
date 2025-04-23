@@ -22,6 +22,7 @@ namespace ExaminationSystem.PL
             builder.Services.AddScoped<IEnrollmentRepository, EnrollmentRepository>();
             builder.Services.AddScoped<IExamRepository, ExamRepository>();
             builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
+            builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 
 
             var app = builder.Build();
