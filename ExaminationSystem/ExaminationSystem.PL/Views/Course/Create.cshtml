@@ -1,0 +1,48 @@
+﻿@model ExaminationSystem.DAL.Models.Course
+
+@{
+    ViewData["Title"] = "Create Course";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card shadow rounded-4 border-0">
+                <div class="card-header bg-primary text-white rounded-top-4">
+                    <h3 class="mb-0">🎓 Create New Course</h3>
+                </div>
+
+                <form asp-action="Create" method="post">
+                    <div class="card-body p-4">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="mb-4">
+                            <label asp-for="Name" class="form-label fw-semibold fs-5">Course Name</label>
+                            <input asp-for="Name" class="form-control form-control-lg" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="InstructorID" class="form-label fw-semibold fs-5">Instructor</label>
+                            <select asp-for="InstructorID" class="form-select form-select-lg" asp-items="ViewBag.InstructorList">
+                                <option value="">-- Select Instructor --</option>
+                            </select>
+                            <span asp-validation-for="InstructorID" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-4">
+                            <label asp-for="CreationDate" class="form-label fw-semibold fs-5">Creation Date</label>
+                            <input asp-for="CreationDate" class="form-control form-control-lg" type="date" />
+                            <span asp-validation-for="CreationDate" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="card-footer bg-light border-0 text-end rounded-bottom-4">
+                        <input type="submit" value="Create" class="btn btn-primary px-4" />
+                        <a asp-action="Index" class="btn btn-outline-primary ms-3 px-4">← Back</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

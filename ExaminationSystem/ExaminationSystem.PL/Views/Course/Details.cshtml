@@ -1,0 +1,60 @@
+﻿@model ExaminationSystem.DAL.Models.Course
+
+@{
+    ViewData["Title"] = "Course Details";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card shadow rounded-4 border-0">
+                <div class="card-header bg-primary text-white rounded-top-4">
+                    <h3 class="mb-0">📚 Course Details</h3>
+                </div>
+                <div class="card-body p-4">
+                    <dl class="row mb-4">
+                        <dt class="col-sm-4 fw-semibold">Course ID</dt>
+                        <dd class="col-sm-8">@Model.ID</dd>
+
+                        <dt class="col-sm-4 fw-semibold">Course Name</dt>
+                        <dd class="col-sm-8">@Model.Name</dd>
+
+                        <dt class="col-sm-4 fw-semibold">Instructor</dt>
+                        <dd class="col-sm-8">
+                            @if (ViewBag.InstructorName != null)
+                            {
+                                @ViewBag.InstructorName
+                            }
+                            else
+                            {
+                                <span class="text-muted">— not assigned —</span>
+                            }
+                        </dd>
+
+                        <dt class="col-sm-4 fw-semibold">Creation Date</dt>
+                        <dd class="col-sm-8">
+                            @Model.CreationDate.ToString("MMMM dd, yyyy")
+                        </dd>
+                    </dl>
+
+                    <div class="mb-4">
+                        <strong class="fs-6">Number of Enrollments:</strong>
+                        <span class="ms-2">@Model.Enrollments?.Count()</span>
+                    </div>
+                    <div class="mb-4">
+                        <strong class="fs-6">Number of Exams:</strong>
+                        <span class="ms-2">@Model.Exams?.Count()</span>
+                    </div>
+                </div>
+                <div class="card-footer bg-light border-0 text-end rounded-bottom-4">
+                    <a asp-action="Edit" asp-route-id="@Model.ID" class="btn btn-outline-success me-2">
+                        <i class="fas fa-edit me-1"></i> Edit
+                    </a>
+                    <a asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="fas fa-arrow-left me-1"></i> Back to List
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
