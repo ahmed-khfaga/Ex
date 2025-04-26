@@ -1,0 +1,52 @@
+﻿@model ExaminationSystem.DAL.Models.Question
+
+@{
+    ViewData["Title"] = "Delete Question";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-10 col-lg-8">
+            <div class="card shadow rounded-4 border-0">
+                <div class="card-header bg-danger text-white rounded-top-4">
+                    <h3 class="mb-0">Delete Question</h3>
+                </div>
+
+                <form asp-action="Delete" method="post">
+                    <div class="card-body p-4">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                        <div class="mb-3">
+                            <h5 class="fw-semibold">Are you sure you want to delete the following question?</h5>
+
+                            <!-- Display question details -->
+                            <p><strong>Question:</strong> @Model.QuestionText</p>
+                            <p><strong>Exam ID:</strong> @Model.ExamID</p>
+                            <p><strong>Mark:</strong> @Model.Mark</p>
+
+                            <!-- Optionally display exam title if it is retrieved -->
+                            @* 
+              @if (ViewBag.ExamTitle != null)
+              {
+                  <p><strong>Exam:</strong> @ViewBag.ExamTitle</p>
+              }
+              *@
+
+                        </div>
+
+                        <div class="mb-3">
+                            <span class="text-danger">This action cannot be undone.</span>
+                        </div>
+                    </div>
+
+                    <div class="card-footer bg-light border-0 text-end rounded-bottom-4">
+                        <!-- Hidden field to pass the Question ID for deletion -->
+                        <input type="hidden" asp-for="ID" />
+                        <button type="submit" class="btn btn-danger px-4">Delete</button>
+                        <a asp-action="Index" class="btn btn-outline-primary ms-3 px-4">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

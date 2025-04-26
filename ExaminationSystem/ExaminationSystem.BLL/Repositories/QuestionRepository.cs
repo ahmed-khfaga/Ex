@@ -37,8 +37,7 @@ namespace ExaminationSystem.BLL.Repositories
 
         public Question GetByID(int id)
         {
-            var question = _dbcontext.Questions.Find(id);
-            return question;
+            return _dbcontext.Questions.Find(id); // Safer
         }
 
         public int Update(Question question)
