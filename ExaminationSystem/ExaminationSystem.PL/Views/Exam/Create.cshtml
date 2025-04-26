@@ -1,0 +1,66 @@
+﻿@model ExaminationSystem.DAL.Models.Exam
+
+@{
+    ViewData["Title"] = "Create New Exam";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h4>Exam Details</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        @* Adjust column width as needed *@
+        <form asp-action="Create">
+            @Html.AntiForgeryToken() @* Important for security *@
+
+            @* Display validation errors that aren't specific to a field *@
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                @* Add margin-bottom for spacing *@
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Duration" class="control-label">Duration (Minutes)</label>
+                <input asp-for="Duration" class="form-control" type="number" min="1" /> @* Use type="number" for numeric input *@
+                <span asp-validation-for="Duration" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="CourseID" class="control-label">Course</label>
+                @* Use asp-items to bind to the SelectList in ViewBag *@
+                <select asp-for="CourseID" class="form-control" asp-items="ViewBag.CourseId">
+                    <option value="">-- Select Course --</option> @* Default empty option *@
+                </select>
+                <span asp-validation-for="CourseID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="InstructorID" class="control-label">Instructor</label>
+                @* Use asp-items to bind to the SelectList in ViewBag *@
+                <select asp-for="InstructorID" class="form-control" asp-items="ViewBag.InstructorId">
+                    <option value="">-- Select Instructor --</option> @* Default empty option *@
+                </select>
+                <span asp-validation-for="InstructorID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-4">
+                @* Add margin-top before buttons *@
+                <button type="submit" class="btn btn-primary">Create Exam</button>
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    @* This line includes standard client-side validation scripts *@
+}

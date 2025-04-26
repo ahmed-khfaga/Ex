@@ -1,8 +1,8 @@
 ﻿@model ExaminationSystem.PL.ViewModels.QuestionViewModel
 
 @{
-    ViewData["Title"] = "Create New Question";
-    // Determine initial visibility based on default model value
+    ViewData["Title"] = "Edit Question";
+    // Determine initial visibility based on model value
     var initialType = Model.QuestionType ?? "MCQ";
     var showTf = initialType == "TF" ? "" : "d-none"; // Bootstrap 5 hide class
     var showMcq = initialType == "MCQ" ? "" : "d-none";
@@ -10,15 +10,16 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<h4>Question Details</h4>
+<h4>Update Question Details</h4>
 <hr />
 <div class="row">
     <div class="col-md-8">
-        @* Wider column for choices *@
-        <form asp-action="Create" id="questionForm">
+        <form asp-action="Edit" id="questionForm">
             @Html.AntiForgeryToken()
-
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @* Hidden field for the Question ID *@
+            <input type="hidden" asp-for="Id" />
 
             <div class="form-group mb-3">
                 <label asp-for="ExamID" class="control-label"></label>
@@ -71,40 +72,46 @@
                 <label class="control-label">Choices (Mark correct answer)</label>
                 <span asp-validation-for="Choices" class="text-danger d-block mb-2"></span> @* Display list-level errors *@
                 <div id="choicesContainer">
-                    @* Render initial empty choice fields from ViewModel constructor *@
-                    @for (int i = 0; i < Model.Choices.Count; i++)
+                    @* Render EXISTING choice fields from the ViewModel *@
+                    @if (Model.Choices != null)
                     {
-                        <div class="input-group mb-2 choice-entry">
-                            <div class="input-group-text">
-                                <input asp-for="Choices[i].IsCorrect" type="radio" name="correctChoiceIndex" value="@i" class="form-check-input mt-0 correct-choice-radio" title="Mark as correct answer" />
+                        @for (int i = 0; i < Model.Choices.Count; i++)
+                        {
+                            // Check if this choice is the correct one to check the radio button
+                            var isChecked = Model.Choices[i].IsCorrect;
+                            <div class="input-group mb-2 choice-entry">
+                                <div class="input-group-text">
+                                    <input asp-for="Choices[i].IsCorrect" type="radio" name="correctChoiceIndex" value="@i" class="form-check-input mt-0 correct-choice-radio" title="Mark as correct answer" checked="@isChecked" />
+                                </div>
+                                <input asp-for="Choices[i].ChoiceText" class="form-control" placeholder="Enter choice text" />
+                                <button type="button" class="btn btn-outline-danger remove-choice" title="Remove Choice"><i class="fas fa-times"></i></button>
+                                @* Hidden field holds the actual boolean value based on radio selection *@
+                                <input type="hidden" name="Choices[@i].IsCorrect" value="@Model.Choices[i].IsCorrect.ToString().ToLower()" class="is-correct-hidden" />
                             </div>
-                            <input asp-for="Choices[i].ChoiceText" class="form-control" placeholder="Enter choice text" />
-                            <button type="button" class="btn btn-outline-danger remove-choice" title="Remove Choice"><i class="fas fa-times"></i></button>
-                            @* Hidden field to help with radio button group selection *@
-                            <input type="hidden" name="Choices[@i].IsCorrect" value="false" class="is-correct-hidden" />
-                        </div>
-                        <span asp-validation-for="Choices[i].ChoiceText" class="text-danger d-block mb-2"></span>
+                            <span asp-validation-for="Choices[i].ChoiceText" class="text-danger d-block mb-2"></span>
+                        }
                     }
                 </div>
                 <button type="button" id="addChoice" class="btn btn-sm btn-outline-success mt-2"><i class="fas fa-plus"></i> Add Choice</button>
             </div>
 
-
             <div class="form-group mt-4">
-                <button type="submit" class="btn btn-primary">Create Question</button>
+                <button type="submit" class="btn btn-primary">Save Changes</button>
                 <a asp-action="Index" asp-route-examId="@Model.ExamID" class="btn btn-secondary">Cancel</a>
             </div>
         </form>
     </div>
 </div>
 
-
+@* Include the same Scripts section as Create.cshtml *@
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
     <script>
-        $(document).ready(function () {
+        // PASTE THE EXACT SAME JAVASCRIPT <script> block from Create.cshtml here
+        // It handles toggling sections and managing dynamic choices.
+         $(document).ready(function () {
 
             function toggleSections() {
                 var selectedType = $('#questionTypeSelector').val();
@@ -154,13 +161,14 @@
                 reindexChoices();
             });
 
-            // Handle radio button selection for IsCorrect
-            choicesContainer.on('change', '.correct-choice-radio', function() {
-                // Set all hidden IsCorrect fields to false first
-                 choicesContainer.find('.is-correct-hidden').val('false');
-                 // Set the hidden field corresponding to the selected radio to true
-                 $(this).closest('.choice-entry').find('.is-correct-hidden').val('true');
-            });
+             // Handle radio button selection for IsCorrect
+             choicesContainer.on('change', '.correct-choice-radio', function() {
+                 // Set all hidden IsCorrect fields to false first
+                  choicesContainer.find('.is-correct-hidden').val('false');
+                  // Set the hidden field corresponding to the selected radio to true
+                  // Ensure the correct input group is targetted
+                  $(this).closest('.choice-entry').find('.is-correct-hidden').val('true');
+             });
 
 
             function reindexChoices() {
@@ -169,18 +177,18 @@
                         var oldName = $(this).attr('name');
                         var newName = oldName.replace(/Choices\[\d+\]/, 'Choices[' + index + ']');
                         $(this).attr('name', newName);
-                        // Update radio button value as well
-                        if ($(this).hasClass('correct-choice-radio')) {
-                             $(this).val(index);
-                        }
+                         // Update radio button value as well
+                         if ($(this).hasClass('correct-choice-radio')) {
+                              $(this).val(index);
+                         }
                     });
                      // Update validation message span 'data-valmsg-for'
-                    var validationSpan = $(this).next('span[data-valmsg-for^="Choices"]');
-                    if (validationSpan.length) {
-                         var oldFor = validationSpan.attr('data-valmsg-for');
-                         var newFor = oldFor.replace(/Choices\[\d+\]/, 'Choices[' + index + ']');
-                         validationSpan.attr('data-valmsg-for', newFor);
-                    }
+                     var validationSpan = $(this).next('span[data-valmsg-for^="Choices"]');
+                     if (validationSpan.length) {
+                          var oldFor = validationSpan.attr('data-valmsg-for');
+                          var newFor = oldFor.replace(/Choices\[\d+\]/, 'Choices[' + index + ']');
+                          validationSpan.attr('data-valmsg-for', newFor);
+                     }
                 });
                  // Re-parse validator after re-indexing
                  var form = $("#questionForm");

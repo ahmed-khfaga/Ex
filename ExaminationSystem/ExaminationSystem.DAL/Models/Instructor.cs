@@ -33,6 +33,8 @@ namespace ExaminationSystem.DAL.Models
 
         [MaxLength(200)]
         public string? Address { get; set; }
+        [NotMapped] // This ensures it's not stored in the database
+        public string FullName => $"{FirstName} {LastName}";
 
 
         public virtual ICollection<Course> Courses { get; set; } = new HashSet<Course>();

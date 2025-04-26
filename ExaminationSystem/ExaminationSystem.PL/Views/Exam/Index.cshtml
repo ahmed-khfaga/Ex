@@ -1,0 +1,99 @@
+﻿@model IEnumerable<ExaminationSystem.DAL.Models.Exam>
+
+@{
+    ViewData["Title"] = "Exams List";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@* Display success/error messages from TempData if they exist *@
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        @TempData["ErrorMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New Exam</a>
+</p>
+
+@if (Model == null || !Model.Any()) // Added null check for extra safety
+{
+    <div class="alert alert-info" role="alert">
+        No exams found. You can create one using the button above.
+    </div>
+}
+else
+{
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Title) @* Use FirstOrDefault() for DisplayNameFor on IEnumerable *@
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Duration) (Mins)
+                </th>
+                <th>
+                    @* Display name for the related Course entity *@
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Course)
+                </th>
+                <th>
+                    @* Display name for the related Instructor entity *@
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Instructor)
+                </th>
+                <th>Actions</th> @* Column for action buttons *@
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Duration)
+                    </td>
+                    <td>
+                        @* Safely display Course Name. Relies on Include() in repository *@
+                        @(item.Course?.Name ?? "N/A")
+                    </td>
+                    <td>
+                        @* Safely display Instructor FullName. Relies on Include() in repository *@
+                        @(item.Instructor?.FullName ?? "N/A")
+                    </td>
+                    <td>
+                        @* Action links for Edit, Details, Delete *@
+                        <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-sm btn-outline-primary me-1" title="Edit">
+                            <i class="fas fa-pencil-alt"></i> @* Example using Font Awesome icon *@
+                        </a>
+                        <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-sm btn-outline-info me-1" title="Details">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-sm btn-outline-danger" title="Delete">
+                            <i class="fas fa-trash"></i>
+                        </a>
+                        @* Add other relevant actions if needed (e.g., Manage Questions) *@
+                        @* <a asp-controller="Question" asp-action="Index" asp-route-examId="@item.ID" class="btn btn-sm btn-outline-secondary" title="Manage Questions">
+                             <i class="fas fa-list-ul"></i> Questions
+                         </a> *@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@* Optional: Include Font Awesome if using icons (ensure you've added it to your project, e.g., via _Layout.cshtml) *@
+@* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" /> *@

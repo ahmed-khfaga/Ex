@@ -1,55 +1,92 @@
-﻿@model IEnumerable<Question>
+﻿@model IEnumerable<ExaminationSystem.DAL.Models.Question>
 
+@{
+    // Use ViewBag data passed from controller for title and context
+    ViewData["Title"] = ViewBag.ExamTitle != null ? $"Questions for {ViewBag.ExamTitle}" : "All Questions";
+    int? currentExamId = ViewBag.ExamIdFilter; // Get filter context for links
+}
 
+<h1>@ViewData["Title"]</h1>
 
-<div class="container mt-5">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card shadow rounded-4 border-0">
-                <div class="card-header bg-info text-white rounded-top-4 d-flex justify-content-between align-items-center">
-                    <h3 class="mb-0">Questions</h3>
-                    <a asp-action="Create" class="btn btn-light text-info fw-bold">+ Add Question</a>
-                </div>
+@* Display TempData Messages *@
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">@TempData["SuccessMessage"]<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">@TempData["ErrorMessage"]<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
+}
 
-                <div class="card-body">
-                    @if (!Model.Any())
+<p>
+    @* Link to Create, passing the current exam ID if available *@
+    <a asp-action="Create" asp-route-examId="@currentExamId" class="btn btn-primary">Create New Question</a>
+    @if (currentExamId.HasValue)
+    {
+        <a asp-controller="Exam" asp-action="Details" asp-route-id="@currentExamId" class="btn btn-outline-secondary">Back to Exam Details</a>
+    }
+</p>
+
+@if (Model == null || !Model.Any())
+{
+    <div class="alert alert-info">No questions found for this filter.</div>
+}
+else
+{
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th style="width: 50%;">
+                    @* Adjust width as needed *@
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().QuestionText)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().Mark)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().QuestionType)
+                </th>
+                @if (!currentExamId.HasValue) // Show Exam column only if viewing all questions
+                {
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().Exam)
+                    </th>
+                }
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @* Truncate long text if desired *@
+                        @Html.DisplayFor(modelItem => item.QuestionText)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mark)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.QuestionType)
+                    </td>
+                    @if (!currentExamId.HasValue) // Display Exam Title if viewing all
                     {
-                        <p class="text-muted">No questions available.</p>
+                        <td>
+                            @(item.Exam?.Title ?? "N/A")
+                        </td>
                     }
-                    else
-                    {
-                        <table class="table table-hover align-middle">
-                            <thead class="table-light">
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Exam ID</th>
-                                    <th>Text</th>
-                                    <th>Type</th>
-                                    <th>Mark</th>
-                                    <th class="text-center">Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var question in Model)
-                                {
-                                    <tr>
-                                        <td>@question.ID</td>
-                                        <td>@question.ExamID</td>
-                                        <td>@question.QuestionText</td>
-                                        <td>@question.QuestionType</td>
-                                        <td>@question.Mark</td>
-                                        <td class="text-center">
-                                            <a asp-action="Details" asp-route-id="@question.ID" class="btn btn-outline-secondary btn-sm me-1">Details</a>
-                                            <a asp-action="Edit" asp-route-id="@question.ID" class="btn btn-outline-primary btn-sm me-1">Edit</a>
-                                            <a asp-action="Delete" asp-route-id="@question.ID" class="btn btn-outline-danger btn-sm">Delete</a>
-                                        </td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    }
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+                    <td>
+                        <div class="btn-group" role="group">
+                            <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-sm btn-outline-primary" title="Edit"><i class="fas fa-pencil-alt"></i></a>
+                            <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-sm btn-outline-info" title="Details"><i class="fas fa-info-circle"></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-sm btn-outline-danger" title="Delete"><i class="fas fa-trash"></i></a>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@* Optional: Include Font Awesome if using icons *@
+@* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" /> *@

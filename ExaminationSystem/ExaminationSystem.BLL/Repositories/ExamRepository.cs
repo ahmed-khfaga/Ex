@@ -32,13 +32,16 @@ namespace ExaminationSystem.BLL.Repositories
 
         public IEnumerable<Exam> GetAll()
         {
-            return _dbcontext.Exams.AsNoTracking().ToList();
+            return _dbcontext.Exams.Include(e => e.Course).Include(e => e.Instructor).AsNoTracking().ToList();
 
         }
 
         public Exam GetByID(int id)
         {
-            var exam = _dbcontext.Exams.Find(id);
+            var exam =  _dbcontext.Exams
+                         .Include(e => e.Course)
+                         .Include(e => e.Instructor)
+                         .FirstOrDefault(e => e.ID == id);
             return exam;
         }
 

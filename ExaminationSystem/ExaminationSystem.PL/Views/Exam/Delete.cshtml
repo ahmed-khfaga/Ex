@@ -1,0 +1,54 @@
+﻿@model ExaminationSystem.DAL.Models.Exam
+
+@{
+    ViewData["Title"] = "Delete Exam";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h3 class="text-danger">Are you sure you want to delete this exam?</h3>
+<div>
+    <h4>Exam Details</h4>
+    <hr />
+    @* Display validation summary if there were errors during the POST (e.g., cannot delete due to foreign key) *@
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Duration) (Minutes)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Course)
+        </dt>
+        <dd class="col-sm-9">
+            @(Model.Course?.Name ?? "N/A")
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Instructor)
+        </dt>
+        <dd class="col-sm-9">
+            @(Model.Instructor?.FullName ?? "N/A")
+        </dd>
+        @* Add other important details to confirm before deleting *@
+    </dl>
+
+    @* The form only needs to post the ID back *@
+    <form asp-action="Delete">
+        @Html.AntiForgeryToken() @* Important for security *@
+
+        @* Pass the ID back to the DeleteConfirmed action *@
+        <input type="hidden" asp-for="ID" />
+
+        <button type="submit" class="btn btn-danger">Delete</button> |
+        <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
