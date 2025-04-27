@@ -1,92 +1,62 @@
-﻿@model IEnumerable<ExaminationSystem.DAL.Models.Question>
+﻿@model IEnumerable<Question>
 
-@{
-    // Use ViewBag data passed from controller for title and context
-    ViewData["Title"] = ViewBag.ExamTitle != null ? $"Questions for {ViewBag.ExamTitle}" : "All Questions";
-    int? currentExamId = ViewBag.ExamIdFilter; // Get filter context for links
-}
 
-<h1>@ViewData["Title"]</h1>
 
-@* Display TempData Messages *@
-@if (TempData["SuccessMessage"] != null)
+<h1>All Questions</h1>
+
+<br />
+<a asp-action="Create" class="btn btn-primary">Create New Question</a>
+
+<br />
+<br />
+
+@if(Model.Count()>0)
 {
-    <div class="alert alert-success alert-dismissible fade show" role="alert">@TempData["SuccessMessage"]<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
-}
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger alert-dismissible fade show" role="alert">@TempData["ErrorMessage"]<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>
-}
-
-<p>
-    @* Link to Create, passing the current exam ID if available *@
-    <a asp-action="Create" asp-route-examId="@currentExamId" class="btn btn-primary">Create New Question</a>
-    @if (currentExamId.HasValue)
-    {
-        <a asp-controller="Exam" asp-action="Details" asp-route-id="@currentExamId" class="btn btn-outline-secondary">Back to Exam Details</a>
-    }
-</p>
-
-@if (Model == null || !Model.Any())
-{
-    <div class="alert alert-info">No questions found for this filter.</div>
-}
-else
-{
-    <table class="table table-striped table-hover">
+    <table class="table table-bordered table-striped">
         <thead>
             <tr>
-                <th style="width: 50%;">
-                    @* Adjust width as needed *@
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().QuestionText)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().Mark)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().QuestionType)
-                </th>
-                @if (!currentExamId.HasValue) // Show Exam column only if viewing all questions
-                {
-                    <th>
-                        @Html.DisplayNameFor(model => model.FirstOrDefault().Exam)
-                    </th>
-                }
+                <th>Question Text</th>
+                <th>Type</th>
+                <th>Mark</th>
+                <th>Correct Answer (TF)</th>
+                <th>Exam Title</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var question in Model)
             {
                 <tr>
+                    <td>@question.QuestionText</td>
+                    <td>@question.QuestionType</td>
+                    <td>@question.Mark</td>
                     <td>
-                        @* Truncate long text if desired *@
-                        @Html.DisplayFor(modelItem => item.QuestionText)
+                        @if (question.QuestionType == "True and False")
+                        {
+                            @(question.CorrectTFAnswer.HasValue
+                                ? (question.CorrectTFAnswer.Value ? "True" : "False")
+                                : "Not Set")
+                        }
+                        else
+                        {
+                            <span>-</span>
+                        }
                     </td>
+                    <td>@question.Exam?.Title ?? "No Exam"</td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Mark)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.QuestionType)
-                    </td>
-                    @if (!currentExamId.HasValue) // Display Exam Title if viewing all
-                    {
-                        <td>
-                            @(item.Exam?.Title ?? "N/A")
-                        </td>
-                    }
-                    <td>
-                        <div class="btn-group" role="group">
-                            <a asp-action="Edit" asp-route-id="@item.ID" class="btn btn-sm btn-outline-primary" title="Edit"><i class="fas fa-pencil-alt"></i></a>
-                            <a asp-action="Details" asp-route-id="@item.ID" class="btn btn-sm btn-outline-info" title="Details"><i class="fas fa-info-circle"></i></a>
-                            <a asp-action="Delete" asp-route-id="@item.ID" class="btn btn-sm btn-outline-danger" title="Delete"><i class="fas fa-trash"></i></a>
-                        </div>
+                        <a asp-action="Details" asp-route-id="@question.ID" class="btn btn-info btn-sm">Details</a>
+                        <a asp-action="Edit" asp-route-id="@question.ID" class="btn btn-warning btn-sm">Edit</a>
+                        <a asp-action="Delete" asp-route-id="@question.ID" class="btn btn-danger btn-sm">Delete</a>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-}
 
-@* Optional: Include Font Awesome if using icons *@
-@* <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" /> *@
+}
+else
+{
+    <div class="alert-danger">
+        <h3>there is no questions </h3>
+    </div>
+}

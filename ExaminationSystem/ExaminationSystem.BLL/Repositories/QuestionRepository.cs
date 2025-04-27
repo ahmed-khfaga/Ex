@@ -32,7 +32,10 @@ namespace ExaminationSystem.BLL.Repositories
 
         public IEnumerable<Question> GetAll()
         {
-            return _dbcontext.Questions.AsNoTracking().ToList();
+            return _dbcontext.Questions
+                      .Include(q => q.Exam) // <-- IMPORTANT: Load the Exam navigation property
+                      .AsNoTracking()
+                      .ToList();
         }
 
         public Question GetByID(int id)
