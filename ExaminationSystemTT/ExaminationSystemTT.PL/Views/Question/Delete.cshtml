@@ -1,0 +1,50 @@
+﻿@model ExaminationSystemTT.DAL.Models.Question
+
+@{
+    ViewData["Title"] = "Delete Question";
+    // string examCourseName = ViewBag.ExamCourseName ?? "Exam"; // Optional context
+}
+
+<h1>Delete Question</h1>
+@* <h4>From Exam ID: @Model.ExamId</h4> *@
+
+
+<h3 class="text-danger">Are you sure you want to delete this question?</h3>
+<div>
+    <h4>Question Details</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.ExamId)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.ExamId)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.QuestionText)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.QuestionText)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Mark)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Mark)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.QuestionType)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.QuestionType)
+        </dd>
+    </dl>
+    @* Optionally display options/TF answer here too *@
+    <hr />
+    <form asp-action="Delete">
+        @* Targets the DeleteConfirmed POST action *@
+        <input type="hidden" asp-for="QuestionId" /> @* Sends the ID of the question to delete *@
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-action="Index" asp-route-examId="@Model.ExamId" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>

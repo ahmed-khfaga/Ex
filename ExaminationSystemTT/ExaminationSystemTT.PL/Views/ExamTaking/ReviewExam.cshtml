@@ -1,0 +1,93 @@
+﻿@model ExaminationSystemTT.PL.ViewModels.ExamReviewViewModel
+@using ExaminationSystemTT.DAL.Models
+
+@{
+    ViewData["Title"] = $"Review Exam: {Model.Exam?.Course?.Name ?? "Details"}";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int questionCounter = 0;
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+
+@if (Model.AttemptDetails != null)
+{
+    <div class="alert alert-secondary mb-4">
+        <h5>Your Attempt Summary</h5>
+        <p>Submitted: @Model.AttemptDetails.SubmissionTime?.ToString("g")</p>
+        <p>Score: @Model.AttemptDetails.Score / @Model.AttemptDetails.MaxScore (@(((double?)Model.AttemptDetails.Score / Model.AttemptDetails.MaxScore * 100 ?? 0).ToString("F1"))%)</p>
+    </div>
+}
+
+@if (Model.Exam == null || Model.Exam.Questions == null || !Model.Exam.Questions.Any())
+{
+    <p class="alert alert-warning">Could not load questions for review.</p>
+}
+else
+{
+    <h2>Questions and Answers</h2>
+    @foreach (var question in Model.Exam.Questions.OrderBy(q => q.QuestionId))
+    {
+        questionCounter++;
+        Model.SubmittedAnswers.TryGetValue(question.QuestionId, out StudentAnswer? submittedAnswer);
+        bool answered = submittedAnswer != null;
+        bool? isCorrect = null;
+
+        if (answered)
+        {
+            if (question.QuestionType == "MCQ" && question.CorrectOptionIndex.HasValue) { isCorrect = submittedAnswer.SelectedOptionIndex == question.CorrectOptionIndex; }
+            else if (question.QuestionType == "TF" && question.CorrectAnswerTF.HasValue) { isCorrect = submittedAnswer.SelectedAnswerTF == question.CorrectAnswerTF; }
+        }
+
+        <div class="card mb-4 shadow-sm border @(answered ? (isCorrect == true ? "border-success" : "border-danger") : "border-secondary")">
+            <div class="card-header @(answered ? (isCorrect == true ? "bg-success text-white" : "bg-danger text-white") : "bg-light")">
+                <h5 class="mb-0">Question @questionCounter (@question.Mark Marks) - @(answered ? (isCorrect == true ? "Correct" : "Incorrect") : "Not Answered")</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text lead" style="white-space: pre-wrap;">@question.QuestionText</p>
+                @if (question.QuestionType == "MCQ")
+                {
+                    @for (int i = 1; i <= 4; i++)
+                    {
+                        string? optionText = i switch { 1 => question.Option1, 2 => question.Option2, 3 => question.Option3, 4 => question.Option4, _ => null };
+                        if (string.IsNullOrEmpty(optionText)) continue;
+                        bool isSubmittedOption = answered && submittedAnswer.SelectedOptionIndex == i;
+                        bool isCorrectOption = question.CorrectOptionIndex == i;
+                        string highlightClass = isCorrectOption ? "text-success fw-bold" : (isSubmittedOption ? "text-danger" : "");
+                        string icon = isCorrectOption ? " ✔" : (isSubmittedOption ? " ❌" : "");
+
+                        <div class="form-check mb-2 @highlightClass">
+                            <input type="radio" class="form-check-input" disabled @(isSubmittedOption ? "checked" : "") />
+                            <label class="form-check-label">@optionText@Html.Raw(icon)</label>
+                        </div>
+                    }
+                }
+                else if (question.QuestionType == "TF")
+                {
+                    @foreach (var tfValue in new[] { true, false })
+                    {
+                        string tfText = tfValue ? "True" : "False";
+                        bool isSubmittedOption = answered && submittedAnswer.SelectedAnswerTF == tfValue;
+                        bool isCorrectOption = question.CorrectAnswerTF == tfValue;
+                        string highlightClass = isCorrectOption ? "text-success fw-bold" : (isSubmittedOption ? "text-danger" : "");
+                        string icon = isCorrectOption ? " ✔" : (isSubmittedOption ? " ❌" : "");
+
+                        <div class="form-check mb-2 @highlightClass">
+                            <input type="radio" class="form-check-input" disabled @(isSubmittedOption ? "checked" : "") />
+                            <label class="form-check-label">@tfText@Html.Raw(icon)</label>
+                        </div>
+                    }
+                }
+                @if (!answered)
+                {
+                    <p class="text-muted fst-italic mt-3">You did not answer this question.</p>
+                }
+            </div>
+        </div>
+    }
+    <hr />
+    <div class="text-center mt-4 mb-5">
+        <a asp-action="Results" asp-route-examId="@Model.Exam.ExamId" asp-route-score="@Model.AttemptDetails?.Score" asp-route-max="@Model.AttemptDetails?.MaxScore" class="btn btn-secondary">Back to Results Summary</a>
+        <a asp-controller="Dashboard" asp-action="Index" class="btn btn-primary">Back to Dashboard</a>
+    </div>
+}

@@ -1,0 +1,15 @@
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.BLL\bin\Debug\net8.0\ExaminationSystemTT.BLL.deps.json
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.BLL\bin\Debug\net8.0\ExaminationSystemTT.BLL.dll
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.BLL\bin\Debug\net8.0\ExaminationSystemTT.BLL.pdb
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.BLL\bin\Debug\net8.0\ExaminationSystemTT.DAL.dll
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.BLL\bin\Debug\net8.0\ExaminationSystemTT.DAL.pdb
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.BLL\obj\Debug\net8.0\ExaminationSystemTT.BLL.csproj.AssemblyReference.cache
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.BLL\obj\Debug\net8.0\ExaminationSystemTT.BLL.GeneratedMSBuildEditorConfig.editorconfig
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.BLL\obj\Debug\net8.0\ExaminationSystemTT.BLL.AssemblyInfoInputs.cache
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.BLL\obj\Debug\net8.0\ExaminationSystemTT.BLL.AssemblyInfo.cs
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.BLL\obj\Debug\net8.0\ExaminationSystemTT.BLL.csproj.CoreCompileInputs.cache
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.BLL\obj\Debug\net8.0\Examinat.360D6480.Up2Date
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.BLL\obj\Debug\net8.0\ExaminationSystemTT.BLL.dll
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.BLL\obj\Debug\net8.0\refint\ExaminationSystemTT.BLL.dll
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.BLL\obj\Debug\net8.0\ExaminationSystemTT.BLL.pdb
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.BLL\obj\Debug\net8.0\ref\ExaminationSystemTT.BLL.dll

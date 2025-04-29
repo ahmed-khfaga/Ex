@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ExaminationSystemTT.DAL.Models.Student>
+
+@{
+    ViewData["Title"] = "Students List";
+}
+
+<h1>Students List</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New Student</a>
+</p>
+
+@if (Model.Any())
+{
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Phone)
+                </th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => student.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => student.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => student.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => student.Phone)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@student.StudentId" class="btn btn-sm btn-warning">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@student.StudentId" class="btn btn-sm btn-info">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@student.StudentId" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="alert alert-warning mt-3">
+        No students found.
+    </div>
+}

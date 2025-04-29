@@ -1,0 +1,12 @@
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.DAL\bin\Debug\net8.0\ExaminationSystemTT.DAL.deps.json
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.DAL\bin\Debug\net8.0\ExaminationSystemTT.DAL.dll
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.DAL\bin\Debug\net8.0\ExaminationSystemTT.DAL.pdb
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.DAL\obj\Debug\net8.0\ExaminationSystemTT.DAL.csproj.AssemblyReference.cache
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.DAL\obj\Debug\net8.0\ExaminationSystemTT.DAL.GeneratedMSBuildEditorConfig.editorconfig
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.DAL\obj\Debug\net8.0\ExaminationSystemTT.DAL.AssemblyInfoInputs.cache
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.DAL\obj\Debug\net8.0\ExaminationSystemTT.DAL.AssemblyInfo.cs
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.DAL\obj\Debug\net8.0\ExaminationSystemTT.DAL.csproj.CoreCompileInputs.cache
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.DAL\obj\Debug\net8.0\ExaminationSystemTT.DAL.dll
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.DAL\obj\Debug\net8.0\refint\ExaminationSystemTT.DAL.dll
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.DAL\obj\Debug\net8.0\ExaminationSystemTT.DAL.pdb
+D:\project mvc\ExaminationSystemTT\ExaminationSystemTT.DAL\obj\Debug\net8.0\ref\ExaminationSystemTT.DAL.dll

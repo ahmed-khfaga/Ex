@@ -1,0 +1,94 @@
+﻿@model IEnumerable<ExaminationSystemTT.DAL.Models.Question>
+
+@{
+    // Use ViewBag data set in the controller
+    int? examId = ViewBag.ExamId;
+    string examCourseName = ViewBag.ExamCourseName ?? "Selected Exam"; // Handle potential null if Course isn't loaded
+    ViewData["Title"] = $"Questions for {examCourseName}";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@* Display Status Messages *@
+@if (ViewBag.ErrorMessage != null)
+{
+    <div class="alert alert-warning">@ViewBag.ErrorMessage</div>
+}
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+@* Show Create button only if we know which exam it's for *@
+@if (examId != null)
+{
+    <p>
+        @* Link to the Create action, passing the current examId *@
+        <a asp-action="Create" asp-route-examId="@examId" class="btn btn-primary">Add New Question to this Exam</a>
+        <a asp-controller="Exam" asp-action="Details" asp-route-id="@examId" class="btn btn-secondary">Back to Exam Details</a>
+    </p>
+}
+else
+{
+    <p>
+        <a asp-controller="Exam" asp-action="Index" class="btn btn-secondary">View Exams to Select One</a>
+    </p>
+}
+
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionText)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.QuestionType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Mark)
+            </th>
+            <th></th> @* Actions column *@
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @* Limit display length if needed *@
+                        @(item.QuestionText?.Length > 100 ? item.QuestionText.Substring(0, 100) + "..." : item.QuestionText)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.QuestionType)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mark)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.QuestionId" class="btn btn-sm btn-warning">Edit</a> |
+                        <a asp-action="Details" asp-route-id="@item.QuestionId" class="btn btn-sm btn-info">Details</a> |
+                        <a asp-action="Delete" asp-route-id="@item.QuestionId" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        else if (examId != null)
+        { // If examId provided but no questions found
+            <tr>
+                <td colspan="4" class="text-center">No questions found for this exam.</td>
+            </tr>
+        }
+        else
+        { // If no examId was provided
+            <tr>
+                <td colspan="4" class="text-center">Please select an exam to view questions.</td>
+            </tr>
+        }
+    </tbody>
+</table>

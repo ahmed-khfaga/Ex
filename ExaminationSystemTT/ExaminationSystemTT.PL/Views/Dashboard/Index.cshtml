@@ -1,0 +1,65 @@
+﻿@* Change model declaration at the top *@
+@model IEnumerable<ExaminationSystemTT.PL.ViewModels.DashboardExamViewModel>
+
+@{
+    ViewData["Title"] = "Student Dashboard";
+}
+
+<h1>Available Exams</h1>
+
+@* Display TempData Messages (keep this part) *@
+@* ... *@
+
+@if (!Model.Any())
+{
+    <p>No exams currently available.</p>
+}
+else
+{
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th>Course</th>
+                <th>Instructor</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var vm in Model) @* Loop through ViewModel *@
+            {
+                <tr>
+                    <td>@vm.Exam.Course?.Name</td>
+                    <td>@vm.Exam.Instructor?.FirstName @vm.Exam.Instructor?.LastName</td>
+                    <td>@vm.Exam.StartTime.ToString("g")</td>
+                    <td>@vm.Exam.EndTime.ToString("g")</td>
+                    <td>
+                        @if (vm.IsCompleted)
+                        {
+                            <span class="badge bg-success">Completed</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-info">Available</span>
+                        }
+                    </td>
+                    <td>
+                        @if (vm.IsCompleted)
+                        {
+                            @* Link to results/review page *@
+                            <a asp-controller="ExamTaking" asp-action="Results" asp-route-examId="@vm.Exam.ExamId" asp-route-score="-1" asp-route-max="-1" class="btn btn-sm btn-secondary">View Results</a>
+                            @* Passing -1 tells Results action to fetch score from DB *@
+                        }
+                        else
+                        {
+                            @* Link to start the exam *@
+                            <a asp-controller="ExamTaking" asp-action="StartExam" asp-route-examId="@vm.Exam.ExamId" class="btn btn-sm btn-primary">Start Exam</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

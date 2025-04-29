@@ -1,0 +1,59 @@
+﻿@model IEnumerable<ExaminationSystemTT.DAL.Models.Exam>
+
+@{
+    ViewData["Title"] = "Exams";
+}
+
+<h1>Exams</h1>
+
+@* Display Status Messages *@
+@if (TempData["SuccessMessage"] != null)
+{
+     <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+     <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New Exam</a>
+</p>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Course</th>
+            <th>Instructor</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th></th> @* Actions column *@
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.ExamId)</td>
+                    <td>@item.Course?.Name</td> @* Use ?. for safety as loading depends on controller *@
+                    <td>@(item.Instructor?.FirstName) @item.Instructor?.LastName</td> @* Use ?. for safety *@
+                    <td>@Html.DisplayFor(modelItem => item.StartTime)</td>
+                    <td>@Html.DisplayFor(modelItem => item.EndTime)</td>
+                    <td>
+                        @* Link to ExamController's AddQuestion (GET) which redirects *@
+                        <a asp-action="AddQuestion" asp-route-examId="@item.ExamId" class="btn btn-sm btn-success" title="Add Questions">Add Qs</a> |
+                        <a asp-action="Details" asp-route-id="@item.ExamId" class="btn btn-sm btn-info">Details</a> |
+                        <a asp-action="Edit" asp-route-id="@item.ExamId" class="btn btn-sm btn-warning">Edit</a> |
+                        <a asp-action="Delete" asp-route-id="@item.ExamId" class="btn btn-sm btn-danger">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr><td colspan="6" class="text-center">No exams found.</td></tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,119 @@
+﻿@model ExaminationSystemTT.DAL.Models.Question
+
+@{
+    // Get Exam context from ViewBag or Model
+    int examId = ViewBag.ExamId ?? Model.ExamId;
+    string examCourseName = ViewBag.ExamCourseName ?? "Selected Exam";
+    ViewData["Title"] = $"Edit Question for {examCourseName}";
+}
+
+<h1>@ViewData["Title"]</h1>
+@* <h4>Exam ID: @examId</h4> *@
+
+<h4>Modify Question Details</h4>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            @* Hidden field for QuestionId and ExamId *@
+            <input type="hidden" asp-for="QuestionId" />
+            <input type="hidden" asp-for="ExamId" />
+
+            <div class="form-group mb-3">
+                <label asp-for="QuestionText" class="control-label"></label>
+                <textarea asp-for="QuestionText" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="QuestionText" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Mark" class="control-label"></label>
+                <input asp-for="Mark" class="form-control" type="number" min="1" />
+                <span asp-validation-for="Mark" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="QuestionType" class="control-label"></label>
+                <select asp-for="QuestionType" class="form-control" id="questionTypeSelector">
+                    <option value="">-- Select Type --</option>
+                    <option value="MCQ">Multiple Choice</option>
+                    <option value="TF">True/False</option>
+                </select>
+                <span asp-validation-for="QuestionType" class="text-danger"></span>
+            </div>
+
+            @* --- Conditional Sections (same as Create) --- *@
+            <div id="mcqOptions" style="display: none;">
+                <hr />
+                <h5>Multiple Choice Options</h5>
+                <div class="form-group mb-2">
+                    <label asp-for="Option1" class="control-label"></label>
+                    <input asp-for="Option1" class="form-control" />
+                    <span asp-validation-for="Option1" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for="Option2" class="control-label"></label>
+                    <input asp-for="Option2" class="form-control" />
+                    <span asp-validation-for="Option2" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for="Option3" class="control-label"></label>
+                    <input asp-for="Option3" class="form-control" />
+                    <span asp-validation-for="Option3" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-2">
+                    <label asp-for="Option4" class="control-label"></label>
+                    <input asp-for="Option4" class="form-control" />
+                    <span asp-validation-for="Option4" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="CorrectOptionIndex" class="control-label">Correct Option Number (1-4)</label>
+                    <input asp-for="CorrectOptionIndex" class="form-control" type="number" min="1" max="4" />
+                    <span asp-validation-for="CorrectOptionIndex" class="text-danger"></span>
+                </div>
+                <hr />
+            </div>
+
+            <div id="tfOptions" style="display: none;">
+                <hr />
+                <h5>True/False Answer</h5>
+                <div class="form-group mb-3">
+                    <label asp-for="CorrectAnswerTF" class="control-label">Correct Answer</label>
+                    <select asp-for="CorrectAnswerTF" class="form-control">
+                        <option value="">-- Select Correct Answer --</option>
+                        <option value="true">True</option>
+                        <option value="false">False</option>
+                    </select>
+                    <span asp-validation-for="CorrectAnswerTF" class="text-danger"></span>
+                </div>
+                <hr />
+            </div>
+            @* --- End Conditional Sections --- *@
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Save Changes" class="btn btn-primary" />
+                <a asp-action="Index" asp-route-examId="@Model.ExamId" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    @* --- JavaScript (same as Create) --- *@
+    <script>
+        document.getElementById('questionTypeSelector').addEventListener('change', function () {
+            var selectedType = this.value;
+            var mcqDiv = document.getElementById('mcqOptions');
+            var tfDiv = document.getElementById('tfOptions');
+
+            mcqDiv.style.display = (selectedType === 'MCQ') ? 'block' : 'none';
+            tfDiv.style.display = (selectedType === 'TF') ? 'block' : 'none';
+        });
+        // Trigger on load to set initial state based on Model's QuestionType
+        document.getElementById('questionTypeSelector').dispatchEvent(new Event('change'));
+    </script>
+}

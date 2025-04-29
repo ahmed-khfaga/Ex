@@ -1,0 +1,57 @@
+﻿@model ExaminationSystemTT.PL.ViewModels.ExamCreateViewModel 
+
+@{
+    ViewData["Title"] = "Edit Exam";
+    int examId = ViewBag.ExamId ?? 0; // Get ExamId passed from controller
+}
+
+<h1>@ViewData["Title"]</h1>
+<h4>Exam ID: @examId</h4>
+
+<hr />
+<div class="row">
+    <div class="col-md-6">
+         @* Form posts to Edit action, passing the examId in the route *@
+        <form asp-action="Edit" asp-route-id="@examId">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+             @* No hidden ID needed here as it's in the route *@
+
+            <div class="form-group mb-3">
+                <label asp-for="StartTime" class="control-label"></label>
+                <input asp-for="StartTime" class="form-control" type="datetime-local" />
+                <span asp-validation-for="StartTime" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="EndTime" class="control-label"></label>
+                <input asp-for="EndTime" class="form-control" type="datetime-local" />
+                <span asp-validation-for="EndTime" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="CourseId" class="control-label"></label>
+                @* The controller pre-selects the correct item in the SelectList *@
+                <select asp-for="CourseId" class="form-control" asp-items="Model.Courses">
+                    <option value="">-- Select Course --</option>
+                </select>
+                <span asp-validation-for="CourseId" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="InstructorId" class="control-label"></label>
+                @* The controller pre-selects the correct item in the SelectList *@
+                <select asp-for="InstructorId" class="form-control" asp-items="Model.Instructors">
+                     <option value="">-- Select Instructor --</option>
+                </select>
+                <span asp-validation-for="InstructorId" class="text-danger"></span>
+            </div>
+            <div class="form-group mt-3">
+                <input type="submit" value="Save Changes" class="btn btn-primary" />
+                 @* Link back to details of the current exam *@
+                 <a asp-action="Details" asp-route-id="@examId" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

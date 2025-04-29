@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Exam Results";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int examId = ViewBag.ExamId ?? 0;
+    int score = ViewBag.Score ?? 0;
+    int maxScore = ViewBag.MaxScore ?? 0;
+    double percentage = ViewBag.Percentage ?? 0.0;
+    string examName = ViewBag.ExamName ?? $"Exam {examId}";
+    bool passed = percentage >= 50; // Example passing threshold
+    bool canReview = ViewBag.CanReview ?? false;
+}
+
+<h1>Exam Results</h1>
+<h2>@examName</h2>
+<hr />
+
+@* TempData Messages *@
+@if (TempData["SuccessMessage"] != null)
+{
+     <div class="alert alert-success alert-dismissible fade show" role="alert"> @TempData["SuccessMessage"] <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+     <div class="alert alert-danger alert-dismissible fade show" role="alert"> @TempData["ErrorMessage"] <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> </div>
+}
+@if (TempData["InfoMessage"] != null)
+{
+     <div class="alert alert-info alert-dismissible fade show" role="alert"> @TempData["InfoMessage"] <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> </div>
+}
+
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card text-center shadow @(passed ? "border-success" : "border-danger")">
+            <div class="card-header @(passed ? "bg-success text-white" : "bg-danger text-white")">
+                <h4> @(passed ? "Congratulations! You Passed!" : "Result")</h4>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Your Score</h5>
+                <p class="display-4">@score / @maxScore</p>
+                <p class="lead">(@percentage.ToString("F1")%)</p>
+                @if (!passed && maxScore > 0)
+                {
+                    <p class="text-danger fw-bold">Unfortunately, you did not meet the passing threshold.</p>
+                }
+                else if (maxScore <= 0)
+                {
+                    <p class="text-warning">Could not calculate percentage (maximum score was zero).</p>
+                }
+            </div>
+            <div class="card-footer text-muted">
+                <a asp-controller="Dashboard" asp-action="Index" class="btn btn-primary">Back to Dashboard</a>
+                @if (canReview && examId > 0)
+                {
+                    <a asp-controller="ExamTaking" asp-action="ReviewExam" asp-route-examId="@examId" class="btn btn-info ms-2">Review My Answers</a>
+                }
+            </div>
+        </div>
+    </div>
+</div>

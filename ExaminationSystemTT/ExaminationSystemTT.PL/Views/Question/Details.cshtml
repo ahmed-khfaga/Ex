@@ -1,0 +1,81 @@
+﻿@model ExaminationSystemTT.DAL.Models.Question
+
+@{
+    ViewData["Title"] = "Question Details";
+    // string examCourseName = ViewBag.ExamCourseName ?? "Exam"; // Optionally get from ViewBag
+}
+
+<h1>Question Details</h1>
+@* <h4>For Exam ID: @Model.ExamId <a asp-controller="Exam" asp-action="Details" asp-route-id="@Model.ExamId">(View Exam)</a></h4> *@
+
+<div>
+    <h4>Question Information</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.QuestionId)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.QuestionId)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.ExamId)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.ExamId)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.QuestionText)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.QuestionText)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.Mark)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.Mark)
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.QuestionType)
+        </dt>
+        <dd class="col-sm-9">
+            @Html.DisplayFor(model => model.QuestionType)
+        </dd>
+    </dl>
+
+    @* --- Display relevant options/answer based on type --- *@
+    @if (Model.QuestionType == "MCQ")
+    {
+        <h5>Options & Answer</h5>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3">Option 1</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Option1)</dd>
+            <dt class="col-sm-3">Option 2</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Option2)</dd>
+            <dt class="col-sm-3">Option 3</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Option3)</dd>
+            <dt class="col-sm-3">Option 4</dt>
+            <dd class="col-sm-9">@Html.DisplayFor(model => model.Option4)</dd>
+            <dt class="col-sm-3 bg-success text-white">Correct Option Index</dt>
+            <dd class="col-sm-9 bg-success text-white">@Html.DisplayFor(model => model.CorrectOptionIndex)</dd>
+        </dl>
+    }
+    else if (Model.QuestionType == "TF")
+    {
+        <h5>Correct Answer</h5>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-3 bg-success text-white">Correct Answer</dt>
+            <dd class="col-sm-9 bg-success text-white">@(Model.CorrectAnswerTF == true ? "True" : "False")</dd> @* More explicit display *@
+        </dl>
+    }
+    @* --- End Display relevant options/answer --- *@
+
+</div>
+<div class="mt-3">
+    <a asp-action="Edit" asp-route-id="@Model?.QuestionId" class="btn btn-warning">Edit</a> |
+    @* Link back to the list of questions for the SAME exam *@
+    <a asp-action="Index" asp-route-examId="@Model?.ExamId" class="btn btn-secondary">Back to Question List</a>
+</div>

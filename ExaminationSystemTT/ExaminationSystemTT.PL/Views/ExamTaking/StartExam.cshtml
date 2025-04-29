@@ -1,0 +1,148 @@
+﻿@model ExaminationSystemTT.PL.ViewModels.ExamTakingViewModel
+@using ExaminationSystemTT.DAL.Models
+
+@{
+    ViewData["Title"] = $"Exam: {Model.Exam?.Course?.Name ?? "Details"}";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    int questionIndex = -1;
+    TimeSpan duration = Model.Exam != null ? (Model.Exam.EndTime - Model.Exam.StartTime) : TimeSpan.Zero;
+    string durationStr = $"{(int)duration.TotalHours}h {duration.Minutes}m";
+    string endTimeIso = Model.Exam?.EndTime.ToString("o") ?? "";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+
+@* TempData Messages *@
+@if (TempData["SuccessMessage"] != null)
+{
+     <div class="alert alert-success alert-dismissible fade show" role="alert"> @TempData["SuccessMessage"] <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+     <div class="alert alert-danger alert-dismissible fade show" role="alert"> @TempData["ErrorMessage"] <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> </div>
+}
+@if (TempData["WarningMessage"] != null)
+{
+     <div class="alert alert-warning alert-dismissible fade show" role="alert"> @TempData["WarningMessage"] <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> </div>
+}
+
+@if (Model.Exam != null)
+{
+    <div class="alert alert-info mb-4">
+        <p><strong>Instructor:</strong> @Model.Exam.Instructor?.FirstName @Model.Exam.Instructor?.LastName</p>
+        <p><strong>Duration:</strong> @durationStr</p>
+        <p><strong>Starts:</strong> @Model.Exam.StartTime.ToString("g")</p>
+        <p><strong>Ends:</strong> <span id="endTimeDisplay">@Model.Exam.EndTime.ToString("g")</span></p>
+        <p><strong>Time Remaining:</strong> <span id="timer" class="fw-bold text-danger"></span></p>
+        <input type="hidden" id="endTimeValue" value="@endTimeIso" />
+    </div>
+}
+else
+{
+     <div class="alert alert-danger">Exam details could not be loaded.</div>
+    return;
+}
+
+<hr />
+
+@if (Model.Questions == null || !Model.Questions.Any())
+{
+    <p class="alert alert-warning">There are no questions currently assigned to this exam.</p>
+}
+else
+{
+    <h2>Questions</h2>
+    <form asp-controller="ExamTaking" asp-action="SubmitExam" method="post" id="examForm">
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="ExamId" value="@Model.Exam.ExamId" />
+
+        @foreach (var question in Model.Questions)
+        {
+            questionIndex++;
+            Model.ExistingAnswers.TryGetValue(question.QuestionId, out StudentAnswer? existingAnswer);
+
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header"><h5 class="mb-0">Question @(questionIndex + 1) (@question.Mark Marks)</h5></div>
+                <div class="card-body">
+                    <p class="card-text lead" style="white-space: pre-wrap;">@question.QuestionText</p>
+                    <input type="hidden" name="Answers[@questionIndex].QuestionId" value="@question.QuestionId" />
+
+                    @if (question.QuestionType == "MCQ")
+                    {
+                        <div class="form-group">
+                            @for (int i = 1; i <= 4; i++)
+                            {
+                                string? optText = i switch { 1 => question.Option1, 2 => question.Option2, 3 => question.Option3, 4 => question.Option4, _ => null };
+                                if (string.IsNullOrEmpty(optText)) continue;
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="radio" name="Answers[@questionIndex].SelectedOptionIndex" id="q@(question.QuestionId)o@i" value="@i" required checked="@(existingAnswer?.SelectedOptionIndex == i)">
+                                    <label class="form-check-label" for="q@(question.QuestionId)o@i">@optText</label>
+                                </div>
+                            }
+                            <input type="hidden" name="Answers[@questionIndex].SelectedAnswerTF" value="" /> @* Helps model binding *@
+                        </div>
+                    }
+                    else if (question.QuestionType == "TF")
+                    {
+                        <div class="form-group">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="Answers[@questionIndex].SelectedAnswerTF" id="q@(question.QuestionId)true" value="true" required checked="@(existingAnswer?.SelectedAnswerTF == true)">
+                                <label class="form-check-label" for="q@(question.QuestionId)true">True</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="Answers[@questionIndex].SelectedAnswerTF" id="q@(question.QuestionId)false" value="false" required checked="@(existingAnswer?.SelectedAnswerTF == false)">
+                                <label class="form-check-label" for="q@(question.QuestionId)false">False</label>
+                            </div>
+                            <input type="hidden" name="Answers[@questionIndex].SelectedOptionIndex" value="" /> @* Helps model binding *@
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-warning">Unsupported question type.</p>
+                    }
+                </div>
+            </div>
+        }
+        <hr />
+        <div class="text-center mt-4 mb-5">
+            <button type="submit" class="btn btn-danger btn-lg" id="submitExamBtn">Submit Exam</button>
+        </div>
+    </form>
+}
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        // Countdown Timer Logic (Same as previous version, includes disable on expiry and confirm)
+        (function() {
+            const endTimeValueElement = document.getElementById('endTimeValue');
+            const timerElement = document.getElementById('timer');
+            const submitButton = document.getElementById('submitExamBtn');
+
+            if (!endTimeValueElement || !timerElement || !submitButton) { console.error("Timer elements not found."); if(timerElement) timerElement.textContent = "Timer unavailable."; return; }
+            let endTime;
+            try { const endTimeValue = Date.parse(endTimeValueElement.value); if (!isNaN(endTimeValue)) { endTime = new Date(endTimeValue); } else { console.error("Could not parse end time: ", endTimeValueElement.value); timerElement.textContent = "Invalid end time data."; return; } }
+            catch (e) { console.error("Error parsing end time: ", e); timerElement.textContent = "Error reading end time."; return; }
+
+            function updateTimer() {
+                const now = new Date(); const timeLeft = endTime - now;
+                if (timeLeft <= 0) {
+                    timerElement.textContent = "Time Expired!"; clearInterval(timerInterval);
+                    document.querySelectorAll('#examForm input[type="radio"]').forEach(radio => radio.disabled = true);
+                    submitButton.disabled = true; submitButton.textContent = "Time Expired";
+                     // Add alert or auto-submit if desired
+                     // alert("Time has expired! Your attempt will be finalized.");
+                     // document.getElementById('examForm').submit();
+                    return;
+                }
+                const h = Math.floor((timeLeft / (3600000)) % 24); const m = Math.floor((timeLeft / 60000) % 60); const s = Math.floor((timeLeft / 1000) % 60);
+                timerElement.textContent = String(h).padStart(2, '0') + ':' + String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+            }
+            const timerInterval = setInterval(updateTimer, 1000); updateTimer();
+            submitButton.addEventListener('click', function(event) { if (!confirm('Are you sure you want to submit your exam? This action cannot be undone.')) { event.preventDefault(); } });
+        })();
+    </script>
+}
