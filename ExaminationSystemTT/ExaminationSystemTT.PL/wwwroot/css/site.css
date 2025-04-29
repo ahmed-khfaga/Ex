@@ -20,3 +20,40 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* Custom Hero Section Styling */
+.hero-section-bg {
+    position: relative; /* Needed for potential pseudo-element overlays if desired */
+    background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('/images/exam-hero.png'); /* Overlay + Image */
+    background-size: cover; /* Cover the entire div */
+    background-position: center center; /* Center the image */
+    background-repeat: no-repeat;
+    color: white; /* Make text white for better contrast */
+    /* Keep padding and rounding if desired, remove explicit background color */
+    padding: 5rem 1.5rem; /* Adjust padding as needed (p-5 equivalent) */
+    border-radius: .3rem; /* rounded-3 equivalent */
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15); /* shadow-sm equivalent */
+    margin-bottom: 1.5rem; /* mb-4 equivalent */
+}
+
+    /* Optional: Style links within the hero section for better visibility */
+    .hero-section-bg a.btn-primary,
+    .hero-section-bg a.btn-secondary {
+        /* Example: Add slight opacity or border to buttons if needed */
+        /* background-color: rgba(0, 123, 255, 0.8); */ /* Slightly transparent primary */
+        /* border-color: white; */
+    }
+
+    .hero-section-bg p.lead {
+        color: rgba(255, 255, 255, 0.9); /* Slightly off-white for lead paragraph */
+        font-weight: 300;
+    }
+
+    .hero-section-bg hr {
+        border-top-color: rgba(255, 255, 255, 0.5); /* Make HR lighter */
+    }
+
+    /* Ensure Bootstrap Icons or other icons are white too if used */
+    .hero-section-bg .feature-icon svg {
+        color: white; /* Or adjust fill/stroke */
+    }

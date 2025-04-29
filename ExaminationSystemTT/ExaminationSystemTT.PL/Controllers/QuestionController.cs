@@ -2,9 +2,7 @@
 using ExaminationSystemTT.DAL.Models;     // Models
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering; // For SelectList (if needed for Exams)
-using System;
-using System.Linq; // Needed for Enumerable.Empty
+
 
 namespace ExaminationSystemTT.PL.Controllers
 {
@@ -157,7 +155,6 @@ namespace ExaminationSystemTT.PL.Controllers
                     int result = _questionRepository.Add(question);
                     if (result > 0)
                     {
-                        TempData["SuccessMessage"] = "Question created successfully!";
                         // Redirect to the list of questions for that exam
                         return RedirectToAction("Index", new { examId = question.ExamId });
                     }
@@ -180,10 +177,8 @@ namespace ExaminationSystemTT.PL.Controllers
             }
 
 
-            // If ModelState was invalid or an error occurred during save, redisplay form
             ViewBag.ExamId = question.ExamId; // Pass ExamId back to the view
-            // Optional: Reload Exam name if needed for the view's title/header
-            // ViewBag.ExamCourseName = _examRepository.GetByID(question.ExamId)?.Course?.Name;
+
             return View(question); // Return the view with the invalid model state
         }
 
@@ -268,8 +263,6 @@ namespace ExaminationSystemTT.PL.Controllers
                 return NotFound();
             }
 
-            // ViewBag.ExamId = question.ExamId; // Pass if needed
-            // ViewBag.ExamCourseName = _examRepository.GetByID(question.ExamId)?.Course?.Name; // Reload context if needed
             return View(question);
         }
 
@@ -293,7 +286,6 @@ namespace ExaminationSystemTT.PL.Controllers
                 int result = _questionRepository.Delete(question);
                 if (result > 0)
                 {
-                    TempData["SuccessMessage"] = "Question deleted successfully!";
                 }
                 else
                 {

@@ -17,6 +17,66 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "D:\\project mvc\\ExaminationSystemTT\\ExaminationSystemTT.PL\\wwwroot\\images\\exam-hero.png",
+      "PackagePath": "staticwebassets\\images\\exam-hero.png"
+    },
+    {
+      "Id": "D:\\project mvc\\ExaminationSystemTT\\ExaminationSystemTT.PL\\wwwroot\\images\\profiles\\321e6c09-9125-4177-8ac7-1d009ec01d52.jpg",
+      "PackagePath": "staticwebassets\\images\\profiles\\321e6c09-9125-4177-8ac7-1d009ec01d52.jpg"
+    },
+    {
+      "Id": "D:\\project mvc\\ExaminationSystemTT\\ExaminationSystemTT.PL\\wwwroot\\images\\profiles\\5b031089-eb87-4109-8c85-1123313e9197.jpg",
+      "PackagePath": "staticwebassets\\images\\profiles\\5b031089-eb87-4109-8c85-1123313e9197.jpg"
+    },
+    {
+      "Id": "D:\\project mvc\\ExaminationSystemTT\\ExaminationSystemTT.PL\\wwwroot\\images\\profiles\\5e6a9553-f03d-430c-aeff-bb2f686bc28e.jpeg",
+      "PackagePath": "staticwebassets\\images\\profiles\\5e6a9553-f03d-430c-aeff-bb2f686bc28e.jpeg"
+    },
+    {
+      "Id": "D:\\project mvc\\ExaminationSystemTT\\ExaminationSystemTT.PL\\wwwroot\\images\\profiles\\693f7c6b-3370-488e-9664-a4d5c1029405.jpg",
+      "PackagePath": "staticwebassets\\images\\profiles\\693f7c6b-3370-488e-9664-a4d5c1029405.jpg"
+    },
+    {
+      "Id": "D:\\project mvc\\ExaminationSystemTT\\ExaminationSystemTT.PL\\wwwroot\\images\\profiles\\75f2cedc-c977-41dd-b402-3786b3b71770.jpeg",
+      "PackagePath": "staticwebassets\\images\\profiles\\75f2cedc-c977-41dd-b402-3786b3b71770.jpeg"
+    },
+    {
+      "Id": "D:\\project mvc\\ExaminationSystemTT\\ExaminationSystemTT.PL\\wwwroot\\images\\profiles\\7689464c-67d5-4833-86af-fce6799e5c0f.jpg",
+      "PackagePath": "staticwebassets\\images\\profiles\\7689464c-67d5-4833-86af-fce6799e5c0f.jpg"
+    },
+    {
+      "Id": "D:\\project mvc\\ExaminationSystemTT\\ExaminationSystemTT.PL\\wwwroot\\images\\profiles\\8d1fe7c4-7072-4ddb-98a2-aa891beb5405.jpg",
+      "PackagePath": "staticwebassets\\images\\profiles\\8d1fe7c4-7072-4ddb-98a2-aa891beb5405.jpg"
+    },
+    {
+      "Id": "D:\\project mvc\\ExaminationSystemTT\\ExaminationSystemTT.PL\\wwwroot\\images\\profiles\\b69390b3-1dcb-4fbd-a33e-3447ea28febf.jpg",
+      "PackagePath": "staticwebassets\\images\\profiles\\b69390b3-1dcb-4fbd-a33e-3447ea28febf.jpg"
+    },
+    {
+      "Id": "D:\\project mvc\\ExaminationSystemTT\\ExaminationSystemTT.PL\\wwwroot\\images\\profiles\\b739ddec-e9b3-4c3f-81ac-e45e189bb248.jpeg",
+      "PackagePath": "staticwebassets\\images\\profiles\\b739ddec-e9b3-4c3f-81ac-e45e189bb248.jpeg"
+    },
+    {
+      "Id": "D:\\project mvc\\ExaminationSystemTT\\ExaminationSystemTT.PL\\wwwroot\\images\\profiles\\c0fe749d-d2bb-429a-9a82-ad68eaf67487.jpeg",
+      "PackagePath": "staticwebassets\\images\\profiles\\c0fe749d-d2bb-429a-9a82-ad68eaf67487.jpeg"
+    },
+    {
+      "Id": "D:\\project mvc\\ExaminationSystemTT\\ExaminationSystemTT.PL\\wwwroot\\images\\profiles\\cf02f13c-7b32-45d5-97fd-47f196497ea4.gif",
+      "PackagePath": "staticwebassets\\images\\profiles\\cf02f13c-7b32-45d5-97fd-47f196497ea4.gif"
+    },
+    {
+      "Id": "D:\\project mvc\\ExaminationSystemTT\\ExaminationSystemTT.PL\\wwwroot\\images\\profiles\\default-avatar.png",
+      "PackagePath": "staticwebassets\\images\\profiles\\default-avatar.png"
+    },
+    {
+      "Id": "D:\\project mvc\\ExaminationSystemTT\\ExaminationSystemTT.PL\\wwwroot\\images\\profiles\\eaf82636-a205-4868-be08-7ff7eeceb41e.jpg",
+      "PackagePath": "staticwebassets\\images\\profiles\\eaf82636-a205-4868-be08-7ff7eeceb41e.jpg"
+    },
+    {
+      "Id": "D:\\project mvc\\ExaminationSystemTT\\ExaminationSystemTT.PL\\wwwroot\\images\\profiles\\f3194e0d-70ea-4be7-a150-c7ae7b6505f8.jpg",
+      "PackagePath": "staticwebassets\\images\\profiles\\f3194e0d-70ea-4be7-a150-c7ae7b6505f8.jpg"
+    },
+    {
       "Id": "D:\\project mvc\\ExaminationSystemTT\\ExaminationSystemTT.PL\\wwwroot\\js\\site.js",
       "PackagePath": "staticwebassets\\js\\site.js"
     },

@@ -22,106 +22,80 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    @* --- Main Navigation Links (Role-Based) --- *@
                     <ul class="navbar-nav flex-grow-1">
-
                         @if (User.Identity != null && User.Identity.IsAuthenticated)
                         {
-                            // --- Links for Authenticated Users ---
-
                             @if (User.IsInRole("Admin"))
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a> @* Admins might still need Home *@
-                                </li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle text-primary fw-bold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Admin Menu
-                                    </a>
+                                    <a class="nav-link dropdown-toggle text-primary fw-bold" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Admin Menu</a>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" asp-controller="Course" asp-action="Index">Manage Courses</a></li>
                                         <li><a class="dropdown-item" asp-controller="Instructor" asp-action="Index">Manage Instructors</a></li>
                                         <li><a class="dropdown-item" asp-controller="Student" asp-action="Index">Manage Students</a></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" asp-controller="Exam" asp-action="Index">Manage Exams</a></li>
-                                        @* Add other admin-specific links here if needed *@
                                     </ul>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                                </li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
                             }
                             else if (User.IsInRole("Instructor"))
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Exam" asp-action="Index">Manage My Exams</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-controller="Course" asp-action="Index">View Courses</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                                </li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-controller="Exam" asp-action="Index">Manage My Exams</a></li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
                             }
                             else if (User.IsInRole("Student"))
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark fw-bold" asp-controller="Dashboard" asp-action="Index">My Dashboard</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                                </li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                                <li class="nav-item"><a class="nav-link text-dark fw-bold" asp-controller="Dashboard" asp-action="Index">My Dashboard</a></li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
                             }
-                            else // User is authenticated but has none of the specific roles above
+                            else // Authenticated user with no specific role
                             {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                                </li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                                <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
                             }
                         }
-                        else
+                        else // Not Authenticated
                         {
-                            // --- Links for Non-Authenticated Users ---
-                            // If you always start at SignUp/SignIn, maybe remove Home/Privacy here?
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                            </li>
+                            <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
+                            <li class="nav-item"><a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a></li>
                         }
                     </ul>
 
-                    @* Authentication Status Section *@
+                    @* === Authentication Status Section (UPDATED) === *@
                     <ul class="navbar-nav">
                         @if (User.Identity != null && User.Identity.IsAuthenticated)
                         {
-                            <li class="nav-item">
-                                @{
-                                    var currentUser = await UserManager.GetUserAsync(User);
-                                    var displayName = currentUser?.FName ?? User.Identity.Name; // Use FName or fallback
-                                    var rolesString = currentUser != null ? string.Join(", ", await UserManager.GetRolesAsync(currentUser)) : "";
-                                }
-                                <span class="navbar-text text-dark me-3">
-                                    Hello, @displayName! (@rolesString)
-                                </span>
-                            </li>
-                            <li class="nav-item">
-                                @* SignOut should be a form for POST method *@
-                                <form asp-controller="Account" asp-action="SignOut" method="post" class="d-inline">
-                                    <button type="submit" class="nav-link btn btn-link text-dark" style="display: inline; padding-top: 0.5rem; padding-bottom: 0.5rem;">Sign Out</button>
-                                </form>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    @{
+                                        // Get current user details within this scope
+                                        var currentUser = await UserManager.GetUserAsync(User);
+                                        var displayName = currentUser?.FName ?? User.Identity.Name; // Prioritize FName
+                                        var profilePicPath = currentUser?.ProfilePicturePath ?? "/images/profiles/default-avatar.png"; // Use default if null/empty
+                                        // Make sure default image exists at /wwwroot/images/profiles/default-avatar.png
+                                    }
+                                    @* Display Profile Picture Thumbnail *@
+                                    <img src="@Url.Content(profilePicPath)" alt=" " class="rounded-circle me-1" style="width: 25px; height: 25px; object-fit: cover;" />
+                                    Hello, @displayName!
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" asp-controller="Account" asp-action="Profile">My Profile</a></li> @* <-- PROFILE LINK ADDED HERE *@
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        @* Sign Out Form within dropdown item *@
+                                        <form asp-controller="Account" asp-action="SignOut" method="post" class="d-inline">
+                                            <button type="submit" class="dropdown-item" style="border:none; background:none; display: block; width: 100%; text-align: left;">Sign Out</button>
+                                        </form>
+                                    </li>
+                                </ul>
                             </li>
                         }
-                        else
+                        else // Not Authenticated
                         {
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-controller="Account" asp-action="SignUp">Sign Up</a>
@@ -131,6 +105,8 @@
                             </li>
                         }
                     </ul>
+                    @* === End Authentication Status Section === *@
+
                 </div>
             </div>
         </nav>
@@ -140,24 +116,15 @@
             @* Display TempData messages if they exist *@
             @if (TempData["SuccessMessage"] != null)
             {
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    @TempData["SuccessMessage"]
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+                <div class="alert alert-success alert-dismissible fade show" role="alert"> @TempData["SuccessMessage"] <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> </div>
             }
             @if (TempData["ErrorMessage"] != null)
             {
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                    @TempData["ErrorMessage"]
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+                <div class="alert alert-danger alert-dismissible fade show" role="alert"> @TempData["ErrorMessage"] <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> </div>
             }
             @if (TempData["WarningMessage"] != null)
             {
-                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                    @TempData["WarningMessage"]
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
+                <div class="alert alert-warning alert-dismissible fade show" role="alert"> @TempData["WarningMessage"] <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> </div>
             }
 
             @RenderBody()

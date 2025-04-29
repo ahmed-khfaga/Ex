@@ -1,13 +1,12 @@
-﻿using System; // For Exception
-using System.Data.Common; // Not typically needed unless using ADO.NET directly
-using System.Threading.Tasks;
+﻿
 using ExaminationSystemTT.BLL.Interfaces; // For IStudentRepository
 using ExaminationSystemTT.DAL.Models;
 using ExaminationSystemTT.PL.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging; // For ILogger
-
+using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace ExaminationSystemTT.PL.Controllers
 {
     public class AccountController : Controller
@@ -18,20 +17,18 @@ namespace ExaminationSystemTT.PL.Controllers
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IStudentRepository _studentRepository; // Added repository
         private readonly ILogger<AccountController> _logger;   // Added logger
+        private readonly IWebHostEnvironment _webHostEnvironment;
+
 
         // --- Constructor ---
-        public AccountController(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
-            RoleManager<IdentityRole> roleManager,
-            IStudentRepository studentRepository, // Inject student repository
-            ILogger<AccountController> logger)   // Inject logger
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<IdentityRole> roleManager, IStudentRepository studentRepository, ILogger<AccountController> logger, IWebHostEnvironment webHostEnvironment)   // Inject logger
         {
-            _userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
-            _signInManager = signInManager ?? throw new ArgumentNullException(nameof(signInManager));
-            _roleManager = roleManager ?? throw new ArgumentNullException(nameof(roleManager));
-            _studentRepository = studentRepository ?? throw new ArgumentNullException(nameof(studentRepository)); // Assign injected repo
-            _logger = logger ?? throw new ArgumentNullException(nameof(logger)); // Assign injected logger
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _roleManager = roleManager;
+            _studentRepository = studentRepository; // Assign injected repo
+            _logger = logger; // Assign injected logger
+            _webHostEnvironment = webHostEnvironment;
         }
 
         // --- Sign Up Actions ---
@@ -249,6 +246,89 @@ namespace ExaminationSystemTT.PL.Controllers
             _logger.LogInformation("User {UserName} signed out.", userName ?? "Unknown");
             // Redirect to a public page after sign out
             return RedirectToAction(nameof(SignIn)); // Redirect to SignIn page
+        }
+
+
+        [HttpGet]
+        [Authorize] // Ensure user is logged in to view profile
+        public async Task<IActionResult> Profile()
+        {
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null)
+            {
+                // This shouldn't happen if [Authorize] is working
+                return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
+            }
+
+            var viewModel = new ProfileViewModel
+            {
+                FName = user.FName,
+                LName = user.LName,
+                Email = user.Email,
+                ExistingProfilePicturePath = user.ProfilePicturePath // Pass existing path
+            };
+
+            return View(viewModel);
+        }
+
+        // --- This is the action method you need to check ---
+        [HttpPost]
+        [Authorize] // Make sure user is logged in
+        [ValidateAntiForgeryToken] // Prevent CSRF attacks
+        public async Task<IActionResult> Profile(ProfileViewModel viewModel) // ★ Does your action accept ProfileViewModel?
+        {
+            // 1. Get the current user
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) { return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'."); }
+
+            // ★ 2. Check if viewModel.ProfilePictureFile is NOT null and has Length > 0
+            if (viewModel.ProfilePictureFile != null && viewModel.ProfilePictureFile.Length > 0)
+            {
+                // --- Handle File Upload ---
+
+                // ★ 3. Validation: Does your file meet size/type limits? Are errors displayed if not?
+                long maxFileSize = 1 * 1024 * 1024; // 1 MB
+                if (viewModel.ProfilePictureFile.Length > maxFileSize) { /* Add ModelState Error */ }
+                var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+                var fileExtension = Path.GetExtension(viewModel.ProfilePictureFile.FileName).ToLowerInvariant();
+                if (string.IsNullOrEmpty(fileExtension) || !allowedExtensions.Contains(fileExtension)) { /* Add ModelState Error */ }
+
+                if (!ModelState.IsValid) { /* Return View(viewModel) with errors */ }
+
+                // ★ 4. Path Calculation: Is _webHostEnvironment injected and used correctly?
+                string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images", "profiles");
+                if (!Directory.Exists(uploadsFolder)) { Directory.CreateDirectory(uploadsFolder); }
+                string uniqueFileName = Guid.NewGuid().ToString() + fileExtension;
+                string filePath = Path.Combine(uploadsFolder, uniqueFileName);
+                string relativePath = "/images/profiles/" + uniqueFileName;
+
+                // ★ 5. Delete Old File: Does this part execute without error? (Check logs if needed)
+                if (!string.IsNullOrEmpty(user.ProfilePicturePath)) { /* ... delete logic ... */ }
+
+                // ★ 6. Save New File: Does this part execute without error? (Check logs if needed)
+                try
+                {
+                    using (var fileStream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await viewModel.ProfilePictureFile.CopyToAsync(fileStream); // <-- File is saved here
+                    }
+                }
+                catch (Exception ex) { /* Log error, Add ModelState Error, Return View(viewModel) */ }              
+                user.ProfilePicturePath = relativePath; // Assign the *relative* path
+                var updateResult = await _userManager.UpdateAsync(user);
+                if (!updateResult.Succeeded)
+                {
+                    // Add ModelState error, maybe delete the newly saved file, Return View(viewModel)
+                }
+
+                return RedirectToAction(nameof(Profile)); // Redirect to GET action
+            }
+            else
+            {
+                // No file uploaded branch
+                if (!ModelState.IsValid) { /* Return View(viewModel) with other errors */ }
+                return RedirectToAction(nameof(Profile)); // Or show a message
+            }
         }
 
     }

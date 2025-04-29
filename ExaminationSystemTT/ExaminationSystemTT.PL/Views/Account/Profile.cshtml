@@ -1,0 +1,68 @@
+﻿@model ExaminationSystemTT.PL.ViewModels.ProfileViewModel
+@{
+    ViewData["Title"] = "My Profile";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Or your main layout
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+
+@* Display TempData Messages *@
+@if (TempData["SuccessMessage"] != null)
+{
+     <div class="alert alert-success alert-dismissible fade show" role="alert"> @TempData["SuccessMessage"] <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> </div>
+}
+@if (TempData["ErrorMessage"] != null)
+{
+     <div class="alert alert-danger alert-dismissible fade show" role="alert"> @TempData["ErrorMessage"] <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> </div>
+}
+
+
+<div class="row">
+    <div class="col-md-4 text-center mb-3">
+        @* --- Display Profile Picture --- *@
+        @{
+            var imagePath = Model.ExistingProfilePicturePath ?? "/images/profiles/default-avatar.png"; // Provide a default image path
+        }
+        <img src="@Url.Content(imagePath)" alt="Profile Picture" class="img-thumbnail rounded-circle" style="width: 200px; height: 200px; object-fit: cover;" />
+
+        @* --- File Upload Form --- *@
+        <form method="post" enctype="multipart/form-data" asp-action="Profile" class="mt-3">
+            @Html.AntiForgeryToken()
+            @* Display ModelOnly errors (e.g., file saving/update errors) *@
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-2"></div>
+
+            <div class="mb-3">
+                <label asp-for="ProfilePictureFile" class="form-label"></label>
+                <input asp-for="ProfilePictureFile" type="file" class="form-control form-control-sm" accept=".jpg,.jpeg,.png,.gif" />
+                <span asp-validation-for="ProfilePictureFile" class="text-danger d-block"></span> @* Show file-specific errors *@
+                <small class="form-text text-muted">Max 1MB. Allowed types: JPG, PNG, GIF.</small>
+            </div>
+            <button type="submit" class="btn btn-primary btn-sm">Upload New Picture</button>
+        </form>
+
+    </div>
+    <div class="col-md-8">
+        @* --- Display User Details --- *@
+        <h4>Account Details</h4>
+        <dl class="row">
+            <dt class="col-sm-3">First Name</dt>
+            <dd class="col-sm-9">@Model.FName</dd>
+
+            <dt class="col-sm-3">Last Name</dt>
+            <dd class="col-sm-9">@Model.LName</dd>
+
+            <dt class="col-sm-3">Email</dt>
+            <dd class="col-sm-9">@Model.Email</dd>
+
+        </dl>
+
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    @* Add custom scripts if needed for image preview, etc. *@
+}

@@ -1,8 +1,77 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using ExaminationSystemTT.DAL.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+
+@{
+    ViewData["Title"] = "Welcome - Examination System ";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+@* --- Hero Section (Uses CSS Background Image) --- *@
+<div class="text-center hero-section-bg">
+    @* This class is styled in site.css *@
+    <h1 class="display-4 fw-bold">Examination System TT</h1>
+    <p class="lead col-lg-8 mx-auto">
+        Your comprehensive platform for creating, managing, and taking online examinations.
+    </p>
+
+    @* Image is now in the background via CSS, no <img> tag needed here *@
+
+    <hr class="my-4"> @* Styled by CSS rule now *@
+
+    @if (SignInManager.IsSignedIn(User))
+    {
+        // --- Content for Logged-In Users ---
+        <p>Welcome back! Access your dashboard or management tools using the navigation menu above.</p>
+        <div>
+            @if (User.IsInRole("Student"))
+            {
+                <a class="btn btn-success btn-lg" asp-controller="Dashboard" asp-action="Index">Go to My Dashboard</a>
+            }
+            else if (User.IsInRole("Instructor"))
+            {
+                <a class="btn btn-info btn-lg" asp-controller="Exam" asp-action="Index">Manage My Exams</a>
+            }
+            else if (User.IsInRole("Admin"))
+            {
+                <a class="btn btn-primary btn-lg" asp-controller="Course" asp-action="Index">Manage Courses</a>
+            }
+        </div>
+    }
+    else
+    {
+        // --- Content for Anonymous Users ---
+        <p>Sign in to take exams or manage assessments. New users can register easily.</p>
+        <div>
+            <a class="btn btn-primary btn-lg me-2" asp-controller="Account" asp-action="SignIn">Sign In</a>
+            <a class="btn btn-secondary btn-lg" asp-controller="Account" asp-action="SignUp">Sign Up Now</a>
+        </div>
+    }
+</div>
+
+@* --- Optional Feature Sections --- *@
+<div class="row g-4 py-5 row-cols-1 row-cols-lg-3">
+    <div class="feature col">
+        <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-primary bg-gradient fs-2 mb-3 p-2 rounded">
+            @* Replace SVG with actual icon library if preferred (e.g., Font Awesome <i class="fas fa-edit"></i>) *@
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z" /><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z" /></svg>
+        </div>
+        <h3 class="fs-2">For Instructors & Admins</h3>
+        <p>Easily create various question types (MCQ, True/False), build exams, assign them, and monitor results.</p>
+    </div>
+    <div class="feature col">
+        <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-success bg-gradient fs-2 mb-3 p-2 rounded">
+            @* Replace SVG with actual icon library if preferred (e.g., <i class="fas fa-tasks"></i>) *@
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-card-checklist" viewBox="0 0 16 16"><path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z" /><path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0zM7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0z" /></svg>
+        </div>
+        <h3 class="fs-2">For Students</h3>
+        <p>Access your assigned exams, complete them within the time limit, and review your performance after submission.</p>
+    </div>
+    <div class="feature col">
+        <div class="feature-icon d-inline-flex align-items-center justify-content-center text-bg-warning bg-gradient fs-2 mb-3 p-2 rounded">
+            @* Replace SVG with actual icon library if preferred (e.g., <i class="fas fa-shield-alt"></i>) *@
+            <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" class="bi bi-shield-check" viewBox="0 0 16 16"><path d="M5.338 1.59a61.44 61.44 0 0 0-2.837.856.481.481 0 0 0-.328.39c-.554 4.157.726 7.19 2.253 9.188a10.725 10.725 0 0 0 2.287 2.233c.346.244.652.42.893.533.12.057.218.095.293.118a.55.55 0 0 0 .101.025.615.615 0 0 0 .1-.025c.076-.023.174-.061.294-.118.24-.113.547-.29.893-.533a10.726 10.726 0 0 0 2.287-2.233c1.527-1.997 2.807-5.031 2.253-9.188a.48.48 0 0 0-.328-.39c-.651-.213-1.75-.56-2.837-.855C9.552 1.29 8.531 1.067 8 1.067c-.53 0-1.552.223-2.662.524zM5.072.56C6.157.265 7.31 0 8 0s1.843.265 2.928.56c1.11.3 2.229.655 2.887.87a1.54 1.54 0 0 1 1.044 1.262c.596 4.477-.787 7.795-2.465 9.99a11.775 11.775 0 0 1-2.517 2.453 7.159 7.159 0 0 1-1.048.625c-.28.132-.581.24-.829.24s-.548-.108-.829-.24a7.158 7.158 0 0 1-1.048-.625 11.777 11.777 0 0 1-2.517-2.453C1.928 10.487.545 7.169 1.141 2.692A1.54 1.54 0 0 1 2.185 1.43 62.456 62.456 0 0 1 5.072.56z" /><path d="M10.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" /></svg>
+        </div>
+        <h3 class="fs-2">Secure & Reliable</h3>
+        <p>Built with security in mind to ensure the integrity of exams and the privacy of user data.</p>
+    </div>
 </div>

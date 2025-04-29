@@ -12,5 +12,9 @@ namespace ExaminationSystemTT.DAL.Models
         public bool IsAgree { get; set; }
         public string FName { get; set; }
         public string LName { get; set; }
+
+
+        public string? ProfilePicturePath { get; set; }
+
     }
 }

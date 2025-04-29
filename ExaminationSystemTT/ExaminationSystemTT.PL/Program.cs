@@ -36,44 +36,45 @@ namespace ExaminationSystemTT.PL
                 }
             }
         }
+        // Keep SeedRolesAsync as it is
+
+        // Function specifically for seeding the Admin User
         public static async Task SeedAdminUserAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ILogger logger)
         {
             // Check if Admin role exists
             if (!await roleManager.RoleExistsAsync("Admin"))
             {
                 logger.LogError("Admin role does not exist. Cannot seed Admin user.");
-                return; // Or handle appropriately
+                return;
             }
 
-            // Check if an admin user already exists
-            var adminUser = await userManager.FindByEmailAsync("admin@yourapp.com"); // Use a strong password in real app!
+            // Check if admin user already exists
+            var adminUser = await userManager.FindByEmailAsync("admin@yourapp.com");
             if (adminUser == null)
             {
                 var newAdminUser = new ApplicationUser
                 {
-                    UserName = "admin", // Or use email convention
+                    UserName = "admin@yourapp.com", // Use email for username generally
                     Email = "admin@yourapp.com",
                     FName = "Admin",
                     LName = "User",
-                    EmailConfirmed = true, // Typically confirm admin manually or via seed
-                    IsAgree = true // Assuming Admin agrees
+                    EmailConfirmed = true,
+                    IsAgree = true
                 };
 
-                // Create the user with a password (use configuration/secrets for password!)
                 var createResult = await userManager.CreateAsync(newAdminUser, "Pa$$w0rd"); // CHANGE THIS PASSWORD!
 
                 if (createResult.Succeeded)
                 {
                     logger.LogInformation("Admin user created successfully.");
-                    // Assign the Admin role
                     var roleResult = await userManager.AddToRoleAsync(newAdminUser, "Admin");
-                    if (roleResult.Succeeded)
+                    if (!roleResult.Succeeded)
                     {
-                        logger.LogInformation("Admin user added to Admin role successfully.");
+                        foreach (var error in roleResult.Errors) { logger.LogError($"Error adding Admin user to Admin role: {error.Description}"); }
                     }
                     else
                     {
-                        foreach (var error in roleResult.Errors) { logger.LogError($"Error adding Admin user to Admin role: {error.Description}"); }
+                        logger.LogInformation("Admin user added to Admin role successfully.");
                     }
                 }
                 else
@@ -81,8 +82,57 @@ namespace ExaminationSystemTT.PL
                     foreach (var error in createResult.Errors) { logger.LogError($"Error creating Admin user: {error.Description}"); }
                 }
             }
+            // else { logger.LogInformation("Admin user already exists."); } // Optional log
         }
 
+        // --- NEW Function specifically for seeding the Instructor User ---
+        public static async Task SeedInstructorUserAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, ILogger logger)
+        {
+            // Check if Instructor role exists
+            if (!await roleManager.RoleExistsAsync("Instructor"))
+            {
+                logger.LogError("Instructor role does not exist. Cannot seed Instructor user.");
+                return;
+            }
+
+            // Check if instructor user already exists
+            var instructorUser = await userManager.FindByEmailAsync("khaledgamal@gmail.com");
+            if (instructorUser == null)
+            {
+                var newInstructorUser = new ApplicationUser
+                {
+                    // Consider consistency: Maybe username should match email?
+                    UserName = "khaledgamal@gmail.com", // Using email is usually better for uniqueness
+                    Email = "khaledgamal@gmail.com",
+                    FName = "khaled",
+                    LName = "Gamal",
+                    EmailConfirmed = true, // Assume confirmed for seeded user
+                    IsAgree = true
+                };
+
+                var createResult = await userManager.CreateAsync(newInstructorUser, "Pa$$w0rd"); // CHANGE THIS PASSWORD!
+
+                if (createResult.Succeeded)
+                {
+                    logger.LogInformation("Instructor user 'khaled Gamal' created successfully.");
+                    var roleResult = await userManager.AddToRoleAsync(newInstructorUser, "Instructor");
+                    if (!roleResult.Succeeded)
+                    {
+                        foreach (var error in roleResult.Errors) { logger.LogError($"Error adding Instructor user to Instructor role: {error.Description}"); }
+                    }
+                    else
+                    {
+                        logger.LogInformation("Instructor user added to Instructor role successfully.");
+                    }
+                }
+                else
+                {
+                    // Corrected Error Logging Variable Here!
+                    foreach (var error in createResult.Errors) { logger.LogError($"Error creating Instructor user 'khaled Gamal': {error.Description}"); }
+                }
+            }
+            // else { logger.LogInformation("Instructor user 'khaled Gamal' already exists."); } // Optional log
+        }
 
 
 
@@ -133,6 +183,8 @@ namespace ExaminationSystemTT.PL
 
                     // Seed Default Admin User
                     await SeedAdminUserAsync(userManager, roleManager, loggerFactory.CreateLogger("AdminSeeding"));
+
+                    await SeedInstructorUserAsync(userManager, roleManager, loggerFactory.CreateLogger("InstructorSeeding"));
 
                     // You could potentially seed initial Instructors/Students here too if needed
                 }

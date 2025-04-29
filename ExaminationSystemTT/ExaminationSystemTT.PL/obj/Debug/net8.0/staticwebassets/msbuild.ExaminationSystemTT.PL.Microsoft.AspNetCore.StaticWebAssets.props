@@ -12,8 +12,8 @@
       <RelatedAsset></RelatedAsset>
       <AssetTraitName></AssetTraitName>
       <AssetTraitValue></AssetTraitValue>
-      <Fingerprint>c2tiyv64ts</Fingerprint>
-      <Integrity>pAGv4ietcJNk/EwsQZ5BN9+K4MuNYS2a9wl4Jw+q9D0=</Integrity>
+      <Fingerprint>axk13oasg5</Fingerprint>
+      <Integrity>0vxYycdpTQem+uJrKvJrOW68EGiOik2u2+nf7qvvwGc=</Integrity>
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\css\site.css'))</OriginalItemSpec>
@@ -71,6 +71,276 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
       <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\favicon.ico'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\exam-hero.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>ExaminationSystemTT.PL</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ExaminationSystemTT.PL</BasePath>
+      <RelativePath>images/exam-hero.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>axst64zgf0</Fingerprint>
+      <Integrity>rr0rWVNjnqd/8lR+uPM2HtpuZV/uRXoMLpzsLWkT3+Q=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\exam-hero.png'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\321e6c09-9125-4177-8ac7-1d009ec01d52.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>ExaminationSystemTT.PL</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ExaminationSystemTT.PL</BasePath>
+      <RelativePath>images/profiles/321e6c09-9125-4177-8ac7-1d009ec01d52.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>d4wqjezoq6</Fingerprint>
+      <Integrity>478p+ougBUuIS4OqIMXL+AFM0XHLRypddV1lHSe+BuE=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\321e6c09-9125-4177-8ac7-1d009ec01d52.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\5b031089-eb87-4109-8c85-1123313e9197.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>ExaminationSystemTT.PL</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ExaminationSystemTT.PL</BasePath>
+      <RelativePath>images/profiles/5b031089-eb87-4109-8c85-1123313e9197.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>jwxjxqs4i6</Fingerprint>
+      <Integrity>naTGkbGHRbm0g1qjRaEKZNndnsBRIp/l8SUfeM/xJVc=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\5b031089-eb87-4109-8c85-1123313e9197.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\5e6a9553-f03d-430c-aeff-bb2f686bc28e.jpeg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>ExaminationSystemTT.PL</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ExaminationSystemTT.PL</BasePath>
+      <RelativePath>images/profiles/5e6a9553-f03d-430c-aeff-bb2f686bc28e.jpeg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>xc02w12js9</Fingerprint>
+      <Integrity>r+0SqQfqWrvDJ9Th9ddNT29B57NJY3/RSV+XOljQyms=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\5e6a9553-f03d-430c-aeff-bb2f686bc28e.jpeg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\693f7c6b-3370-488e-9664-a4d5c1029405.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>ExaminationSystemTT.PL</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ExaminationSystemTT.PL</BasePath>
+      <RelativePath>images/profiles/693f7c6b-3370-488e-9664-a4d5c1029405.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>svoe5uw8i0</Fingerprint>
+      <Integrity>iC0AkQci6+LebLkFZw552vnYYgyqfr/EjXAwV33doF4=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\693f7c6b-3370-488e-9664-a4d5c1029405.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\75f2cedc-c977-41dd-b402-3786b3b71770.jpeg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>ExaminationSystemTT.PL</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ExaminationSystemTT.PL</BasePath>
+      <RelativePath>images/profiles/75f2cedc-c977-41dd-b402-3786b3b71770.jpeg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>ym2zwkqikx</Fingerprint>
+      <Integrity>5vctX6MjZWbF8aa9QMng4gpklHrXgGBtdV1UUYunoFY=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\75f2cedc-c977-41dd-b402-3786b3b71770.jpeg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\7689464c-67d5-4833-86af-fce6799e5c0f.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>ExaminationSystemTT.PL</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ExaminationSystemTT.PL</BasePath>
+      <RelativePath>images/profiles/7689464c-67d5-4833-86af-fce6799e5c0f.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>mfnfqo3lhp</Fingerprint>
+      <Integrity>nrFdZnJGBgjfeoV0pfruzPpvhZp8qLK4xk5Iag6Fbow=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\7689464c-67d5-4833-86af-fce6799e5c0f.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\8d1fe7c4-7072-4ddb-98a2-aa891beb5405.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>ExaminationSystemTT.PL</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ExaminationSystemTT.PL</BasePath>
+      <RelativePath>images/profiles/8d1fe7c4-7072-4ddb-98a2-aa891beb5405.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>arxhug2r1c</Fingerprint>
+      <Integrity>2jzItZvbzDixl9dqXKWrZTOSW02lokaLuR8CVT83jwQ=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\8d1fe7c4-7072-4ddb-98a2-aa891beb5405.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\b69390b3-1dcb-4fbd-a33e-3447ea28febf.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>ExaminationSystemTT.PL</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ExaminationSystemTT.PL</BasePath>
+      <RelativePath>images/profiles/b69390b3-1dcb-4fbd-a33e-3447ea28febf.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>dnymsoivlx</Fingerprint>
+      <Integrity>F8vglC7yZazL74I89VZR9AwVlH4RicnEhGTwverGiqU=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\b69390b3-1dcb-4fbd-a33e-3447ea28febf.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\b739ddec-e9b3-4c3f-81ac-e45e189bb248.jpeg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>ExaminationSystemTT.PL</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ExaminationSystemTT.PL</BasePath>
+      <RelativePath>images/profiles/b739ddec-e9b3-4c3f-81ac-e45e189bb248.jpeg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>srz9hb3je1</Fingerprint>
+      <Integrity>WMrdT6fNQZlRsPh8OjaZ4q3uidfqJ8XcatWFxQf+RR8=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\b739ddec-e9b3-4c3f-81ac-e45e189bb248.jpeg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\c0fe749d-d2bb-429a-9a82-ad68eaf67487.jpeg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>ExaminationSystemTT.PL</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ExaminationSystemTT.PL</BasePath>
+      <RelativePath>images/profiles/c0fe749d-d2bb-429a-9a82-ad68eaf67487.jpeg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>srz9hb3je1</Fingerprint>
+      <Integrity>WMrdT6fNQZlRsPh8OjaZ4q3uidfqJ8XcatWFxQf+RR8=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\c0fe749d-d2bb-429a-9a82-ad68eaf67487.jpeg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\cf02f13c-7b32-45d5-97fd-47f196497ea4.gif'))">
+      <SourceType>Package</SourceType>
+      <SourceId>ExaminationSystemTT.PL</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ExaminationSystemTT.PL</BasePath>
+      <RelativePath>images/profiles/cf02f13c-7b32-45d5-97fd-47f196497ea4.gif</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>eaa78gt9uo</Fingerprint>
+      <Integrity>KnjwJtJf1yHLDOQ3DzxA+b3yABJLuWdzS6Q9JXMZJTM=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\cf02f13c-7b32-45d5-97fd-47f196497ea4.gif'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\default-avatar.png'))">
+      <SourceType>Package</SourceType>
+      <SourceId>ExaminationSystemTT.PL</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ExaminationSystemTT.PL</BasePath>
+      <RelativePath>images/profiles/default-avatar.png</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>kvath1zy1g</Fingerprint>
+      <Integrity>UOHH5QS++TpVs+4nUg885p4lAgM18fubHigGCR593wI=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\default-avatar.png'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\eaf82636-a205-4868-be08-7ff7eeceb41e.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>ExaminationSystemTT.PL</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ExaminationSystemTT.PL</BasePath>
+      <RelativePath>images/profiles/eaf82636-a205-4868-be08-7ff7eeceb41e.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>oetfuaggj5</Fingerprint>
+      <Integrity>oIiSonzOpH0KcaBOhBTHhJlhRCk781AhqC+H8++1JQ0=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\eaf82636-a205-4868-be08-7ff7eeceb41e.jpg'))</OriginalItemSpec>
+    </StaticWebAsset>
+    <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\f3194e0d-70ea-4be7-a150-c7ae7b6505f8.jpg'))">
+      <SourceType>Package</SourceType>
+      <SourceId>ExaminationSystemTT.PL</SourceId>
+      <ContentRoot>$(MSBuildThisFileDirectory)..\staticwebassets\</ContentRoot>
+      <BasePath>_content/ExaminationSystemTT.PL</BasePath>
+      <RelativePath>images/profiles/f3194e0d-70ea-4be7-a150-c7ae7b6505f8.jpg</RelativePath>
+      <AssetKind>All</AssetKind>
+      <AssetMode>All</AssetMode>
+      <AssetRole>Primary</AssetRole>
+      <RelatedAsset></RelatedAsset>
+      <AssetTraitName></AssetTraitName>
+      <AssetTraitValue></AssetTraitValue>
+      <Fingerprint>83uym2jzpc</Fingerprint>
+      <Integrity>LCUUKNPs+R6k6E4bnVPuLIwx596GdjiBH05/6H/DpeI=</Integrity>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <OriginalItemSpec>$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\images\profiles\f3194e0d-70ea-4be7-a150-c7ae7b6505f8.jpg'))</OriginalItemSpec>
     </StaticWebAsset>
     <StaticWebAsset Include="$([System.IO.Path]::GetFullPath('$(MSBuildThisFileDirectory)..\staticwebassets\js\site.js'))">
       <SourceType>Package</SourceType>

@@ -61,7 +61,6 @@ namespace ExaminationSystemTT.PL.Controllers
                     int result = _courseRepository.Add(course);
                     if (result > 0)
                     {
-                        TempData["SuccessMessage"] = "Course created successfully!";
                         return RedirectToAction(nameof(Index)); // Redirect to the list after successful creation
                     }
                     else
@@ -117,7 +116,6 @@ namespace ExaminationSystemTT.PL.Controllers
                     int result = _courseRepository.Update(course);
                     if (result > 0)
                     {
-                        TempData["SuccessMessage"] = "Course updated successfully!";
                         return RedirectToAction(nameof(Index)); // Redirect to list after successful update
                     }
                     else
@@ -174,11 +172,7 @@ namespace ExaminationSystemTT.PL.Controllers
             try
             {
                 int result = _courseRepository.Delete(course);
-                if (result > 0)
-                {
-                    TempData["SuccessMessage"] = "Course deleted successfully!";
-                }
-                else
+                if (result < 0) 
                 {
                     // This could happen if the row was deleted by another process just before SaveChanges
                     TempData["ErrorMessage"] = "Failed to delete the course. It might have been deleted already.";

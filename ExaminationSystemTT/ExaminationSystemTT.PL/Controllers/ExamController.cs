@@ -109,7 +109,6 @@ namespace ExaminationSystemTT.PL.Controllers
                     int result = _examRepository.Add(exam); // Uses repo's Add
                     if (result > 0)
                     {
-                        TempData["SuccessMessage"] = "Exam created successfully!";
                         return RedirectToAction(nameof(Details), new { id = exam.ExamId });
                     }
                     else
@@ -210,7 +209,6 @@ namespace ExaminationSystemTT.PL.Controllers
 
                 if (result > 0)
                 {
-                    TempData["SuccessMessage"] = "Exam updated successfully!";
                     return RedirectToAction(nameof(Details), new { id = id });
                 }
                 else
@@ -274,7 +272,6 @@ namespace ExaminationSystemTT.PL.Controllers
                 int result = _examRepository.Delete(exam); // Call repo's Delete
                 if (result > 0)
                 {
-                    TempData["SuccessMessage"] = "Exam deleted successfully!";
                 }
                 else
                 {

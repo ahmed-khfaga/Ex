@@ -18,4 +18,8 @@
     <ProjectReference Include="..\ExaminationSystemTT.BLL\ExaminationSystemTT.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\background\" />
+  </ItemGroup>
+
 </Project>

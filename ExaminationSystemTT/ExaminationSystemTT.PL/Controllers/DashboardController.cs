@@ -1,12 +1,9 @@
-﻿// In DashboardController.cs
-using ExaminationSystemTT.BLL.Interfaces; // Add this
+﻿using ExaminationSystemTT.BLL.Interfaces; 
 using ExaminationSystemTT.DAL.Models;
-using ExaminationSystemTT.PL.ViewModels;  // For DashboardViewModel if created
+using ExaminationSystemTT.PL.ViewModels;  
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq; // Add this
-using System.Threading.Tasks; // Add this
 
 [Authorize(Roles = "Student")]
 public class DashboardController : Controller
@@ -65,13 +62,3 @@ public class DashboardController : Controller
     }
 }
 
-// --- Create this ViewModel ---
-// File: ViewModels/DashboardExamViewModel.cs
-namespace ExaminationSystemTT.PL.ViewModels
-{
-    public class DashboardExamViewModel
-    {
-        public ExaminationSystemTT.DAL.Models.Exam Exam { get; set; }
-        public bool IsCompleted { get; set; }
-    }
-}
